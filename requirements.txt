@@ -1,0 +1,11 @@
+ftfy
+openpyxl
+sentence_transformers
+pytorch_lightning
+scikit-learn
+transformers
+pandas
+numpy<2
+accelerate>=0.26.0
+datasets==2.19.1
+emoji==0.6.0

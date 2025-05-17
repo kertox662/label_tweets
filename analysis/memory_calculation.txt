@@ -1,0 +1,81 @@
+Let’s break down the calculation step by step. We’re assuming the following values based on typical “base” transformers and the code:
+
+1. **Model Size (number of parameters):**  
+   For a “base” model (e.g., BERT-base, BERTweet-base, or similar), we assume approximately 110 million parameters. That is:  
+   \[
+   \text{model size} = 1.1 \times 10^8
+   \]
+
+2. **Precision:**  
+   We assume 32-bit floating point precision, which means each value uses 4 bytes.
+
+3. **Batch Size:**  
+   From your code:  
+   \[
+   \text{batch size} = 64
+   \]
+
+4. **Sequence Length:**  
+   The maximum sequence length in your code is set to 32 tokens:  
+   \[
+   \text{sequence length} = 32
+   \]
+
+5. **Input Dimension:**  
+   Base transformer models typically have a hidden size of 768:  
+   \[
+   \text{input dimension} = 768
+   \]
+
+6. **Optimizer State:**  
+   For optimizers like Adam, in addition to the model parameters, you typically store two extra “state” values (first moment and second moment) per parameter. This means:  
+   \[
+   \text{optimizer state} = 2 \times (\text{model parameters}) = 2 \times 1.1 \times 10^8 = 2.2 \times 10^8
+   \]
+
+Now, we plug these numbers into the formula:  
+
+\[
+\text{Memory required} \approx (\text{model size} \times \text{precision}) + (\text{batch size} \times \text{sequence length} \times \text{input dimension} \times \text{precision}) + (\text{optimizer state} \times \text{precision})
+\]
+
+### Step-by-Step Calculation
+
+1. **Model Parameters Memory:**  
+   \[
+   \text{Model Memory} = 1.1 \times 10^8 \times 4 \text{ bytes} = 440 \times 10^6 \text{ bytes}
+   \]
+   This is 440 MB (if 1 MB ≈ 10\(^6\) bytes).
+
+2. **Activation Memory (for the input):**  
+   \[
+   \text{Activation Memory} = 64 \times 32 \times 768 \times 4 \text{ bytes}
+   \]
+   First, compute the number of elements:  
+   \[
+   64 \times 32 = 2048, \quad 2048 \times 768 = 1,572,864 \text{ elements}
+   \]
+   Now, multiply by 4 bytes per element:  
+   \[
+   1,572,864 \times 4 = 6,291,456 \text{ bytes} \quad\approx 6.29 \text{ MB}
+   \]
+
+3. **Optimizer State Memory:**  
+   \[
+   \text{Optimizer Memory} = 2.2 \times 10^8 \times 4 \text{ bytes} = 880 \times 10^6 \text{ bytes}
+   \]
+   That is 880 MB.
+
+### Total Memory Calculation
+
+Now, we add all the components:
+
+\[
+Total Memory = 440 MB + 6.29 MB + 880 MB \approx 1,326.29 MB
+\]
+
+This means the total required memory is approximately **1.33 GB**.
+
+### Final Answer
+
+Using the formula and our assumptions, the estimated memory required is about **1.33 GB**.
