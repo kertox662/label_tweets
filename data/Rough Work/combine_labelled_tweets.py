@@ -25,4 +25,5 @@ def __main__(self):
 
     final_df = pd.concat([data, df_2019, df_2017_20], ignore_index=True)
     final_df = final_df[['tweet_id', 'year', 'AR', 'MB']]
+    final_df['AR'] = final_df['AR'].astype('Int64')
     final_df.to_csv(path + 'final_combined_labelled.csv', index=False)
