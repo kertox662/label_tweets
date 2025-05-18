@@ -10,12 +10,16 @@ if __name__ == "__main__":
             full_path = os.path.join(path,file)
             df = pd.read_csv(full_path)
             df = df[['tweet_id', 'text', 'author_id', 'tw_date', 'year', 'AR', 'MB']]
+            df['tweet_id'] = df['tweet_id'].astype('Int64')
             dfs.append(df)
 
     data = pd.concat(dfs, ignore_index=True)
 
     other_data = pd.read_csv(path + '/2019_updated.csv')
+    other_data['tweet_id'] = other_data['tweet_id'].astype('Int64')
     other_data_2 = pd.read_csv(path + '/Michelle.csv')
+    other_data_2['tweet_id'] = other_data_2['tweet_id'].astype('Int64')
+    other_data_2 = other_data_2.dropna(subset=['AR'])
     df_2019 = other_data[['tweet_id', 'text', 'author_id', 'tw_date', 'year', 'AR', 'MB']]
     df_2017_20 = other_data_2[['tweet_id', 'text', 'author_id', 'tw_date', 'year', 'AR', 'MB']]
 
