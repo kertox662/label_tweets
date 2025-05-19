@@ -2,7 +2,7 @@ import pandas as pd
 import os
 if __name__ == "__main__":
     current_dir = os.getcwd()
-    path = os.path.abspath(os.path.join(current_dir, '../tweets/Labelled_Tweets/'))
+    path = os.path.join(current_dir, 'tweets/Labelled_Tweets/')
 
     dfs = []
     for file in os.listdir(path):
@@ -31,4 +31,4 @@ if __name__ == "__main__":
     final_df = pd.concat([data, df_2019, df_2017_20], ignore_index=True)
     final_df = final_df[['tweet_id', 'year', 'AR', 'MB']]
     final_df['AR'] = final_df['AR'].astype('Int64')
-    final_df.to_csv(current_dir + '/../tweets/final_combined_labelled.csv', index=False)
+    final_df.to_csv(current_dir + '/tweets/final_combined_labelled.csv', index=False)
