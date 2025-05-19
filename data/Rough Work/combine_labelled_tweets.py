@@ -15,10 +15,15 @@ if __name__ == "__main__":
 
     data = pd.concat(dfs, ignore_index=True)
 
-    other_data = pd.read_csv(path + '/2019_updated.csv')
+    other_data = pd.read_csv(path + '/failed.csv')
     other_data['tweet_id'] = other_data['tweet_id'].astype('Int64')
-    other_data_2 = pd.read_csv(path + '/Michelle.csv')
-    other_data_2['tweet_id'] = other_data_2['tweet_id'].astype('Int64')
+    other_data['text'] = other_data['text_x']
+    other_data['tw_date'] = other_data['tw_date_x']
+    other_data['author_id'] = other_data['author']
+    other_data_2 = pd.read_csv(path + '/success.csv')
+    other_data_2['tweet_id'] = other_data_2['tweet_id_y'].astype('Int64')
+    other_data_2['tw_date'] = other_data_2['tw_date_y']
+    other_data_2['text'] = other_data_2['text_y']
     other_data_2 = other_data_2.dropna(subset=['AR'])
     df_2019 = other_data[['tweet_id', 'text', 'author_id', 'tw_date', 'year', 'AR', 'MB']]
     df_2017_20 = other_data_2[['tweet_id', 'text', 'author_id', 'tw_date', 'year', 'AR', 'MB']]
