@@ -25,10 +25,7 @@ data/tweets/Labelled_Tweets/random_tweets_2021.csv
 data/tweets/Labelled_Tweets/2019_updated.csv
 data/tweets/Labelled_Tweets/Michelle.csv
 data/tweets/RData Tweets/homestyle_tweets (1).RData
-data/tweets/Labelled_Tweets/failed.csv
-.gitignore
 data/tweets/Labelled_Tweets/removed/2019_updated.csv
 data/tweets/Labelled_Tweets/removed/Michelle.csv
-.gitignore
 data/tweets/Labelled_Tweets/success.csv
 data/tweets/RData Tweets/updated_homestyle.Rdata
