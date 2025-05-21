@@ -44,6 +44,12 @@ def get_dataloader_unlabeled(df, text_column, target=None, shuffle=True, batch_s
                           collate_fn=lambda x:x, drop_last=drop_last)
   return dataloader
 
+def get_dataloader_labeled(df=None, text_column='clean_tweet', id_col='tweet_id', target=None, shuffle=True, batch_size=64, drop_last=True):
+  data = list(zip(df[id_col].tolist(), df[text_column].tolist(), df[target].tolist()))
+  dataloader = DataLoader(data, shuffle=shuffle, batch_size=batch_size,
+                          collate_fn=lambda x:x, drop_last=drop_last)
+  return dataloader
+
 
 def get_dataloader_ST(df, text_column, shuffle=True, batch_size=64, drop_last=True):
   data = [InputExample(texts=[s, s]) for s in df[text_column].dropna().tolist()] # [s,s] to allow for siamese pairings.
