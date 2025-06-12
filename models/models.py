@@ -54,30 +54,55 @@ class BertweetClassifier(pl.LightningModule):
         super().__init__()
         self.model = SentenceTransformer(model_name)
         self.classifier = nn.Linear(self.model.get_sentence_embedding_dimension(), num_labels)
+        # Ensure that the ST is frozen
+        for p in self.model.parameters():
+            p.requires_grad = False
 
-    def forward(self, input_ids, attention_mask):
-        embeddings = self.model.encode(input_ids, attention_mask=attention_mask, convert_to_tensor=True)
-        logits = self.classifier(embeddings)
-        return logits 
+    # Forward expects ONLY the list[str] texts
+    def forward(self, texts: list[str]):
+        embeds = self.encoder.encode(texts, convert_to_tensor=True, device=self.device)
+        return self.classifier(embeds)
 
-    def training_step(self, batch, batch_idx):
-        input_ids, attention_mask, labels = batch
-        logits = self(input_ids, attention_mask)
-        loss = nn.CrossEntropyLoss()(logits, labels)
-        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True)
+    # ------------------------------------------------------------------
+    # Shared step to avoid duplication
+    def _shared_step(self, batch, stage: str):
+        texts, labels = batch                    # <- from our collate_fn
+        logits = self(texts)
+        loss   = self.loss_fn(logits, labels.to(self.device))
+
+        preds  = logits.argmax(1)
+        acc    = (preds == labels.to(self.device)).float().mean()
+
+        # nice logging
+        self.log(f"{stage}_loss", loss,  prog_bar=True, on_step=(stage=="train"), on_epoch=True)
+        self.log(f"{stage}_acc",  acc,   prog_bar=True, on_epoch=True,   on_step=False)
         return loss
 
-    def validation_step(self, *args, **kwargs):
-        return super().validation_step(*args, **kwargs) 
-    
+    # Lightning API -----------------------------------------------------
+    def training_step(self, batch, batch_idx):
+        return self._shared_step(batch, "train")
+
+    def validation_step(self, batch, batch_idx):
+        self._shared_step(batch, "val")
+        
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=5e-5)
+        total_steps  = self.trainer.estimated_stepping_batches
+        warmup_steps = int(self.hparams.warmup_ratio * total_steps)
         scheduler = get_linear_schedule_with_warmup(
             optimizer,
-            num_warmup_steps=int(0.1 * len(self.train_dataloader()) * self.trainer.max_epochs),
-            num_training_steps=len(self.train_dataloader()) * self.trainer.max_epochs
+            num_warmup_steps=warmup_steps,
+            num_training_steps=total_steps
         )
-        return [optimizer], [scheduler]
+        return {
+            "optimizer":  optimizer,
+            "lr_scheduler": {
+                "scheduler": scheduler,
+                "interval": "step",      # step every batch
+                "frequency": 1,
+                "name": "linear-warmup",
+            },
+        }
 
 # Define the neural network
 # class BERTweetClassifier(nn.Module):
