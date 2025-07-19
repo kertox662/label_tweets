@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import pytorch_lightning as pl
+from sklearn.metrics import f1_score
 from sentence_transformers import SentenceTransformer
 from transformers import get_linear_schedule_with_warmup
 
@@ -62,13 +63,16 @@ class BertweetClassifier(pl.LightningModule):
         # Get probabilities
         preds = logits.argmax(1)
 
-        acc_AR = (preds == true_AR.to(self.device)).float().mean()
-        acc_MB = (preds == true_MB.to(self.device)).float().mean()
-
+        acc_ar = (preds == true_AR.to(self.device)).float().mean()
+        acc_mb = (preds == true_MB.to(self.device)).float().mean()
+        f1_ar = f1_score(true_AR, preds, average='macro')
+        f1_mb = f1_score(true_MB, preds, average='macro')
 
         self.log(f"{stage}_loss", loss, prog_bar=True, on_step=(stage=="train"), on_epoch=True)
-        self.log(f"{stage}_acc_AR", acc_AR, prog_bar=True, on_epoch=True, on_step=False)
-        self.log(f"{stage}_acc_MB", acc_MB, prog_bar=True, on_epoch=True, on_step=False)
+        self.log(f"{stage}_acc_ar", acc_ar, prog_bar=True, on_epoch=True, on_step=False)
+        self.log(f"{stage}_f1_ar", f1_ar, prog_bar=True, on_epoch=True, on_step=False)
+        self.log(f"{stage}_acc_mb", acc_mb, prog_bar=True, on_epoch=True, on_step=False)
+        self.log(f"{stage}_f1_mb", f1_mb, prog_bar=True, on_epoch=True, on_step=False)
 
         # Optionally: return predictions for logging or downstream use
         # Return as a dict for Lightning
