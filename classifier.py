@@ -65,8 +65,8 @@ class BertweetClassifier(pl.LightningModule):
 
         acc_ar = (preds == true_AR.to(self.device)).float().mean()
         acc_mb = (preds == true_MB.to(self.device)).float().mean()
-        f1_ar = f1_score(true_AR, preds, average='macro')
-        f1_mb = f1_score(true_MB, preds, average='macro')
+        f1_ar = f1_score(true_AR, preds, average='weighted')
+        f1_mb = f1_score(true_MB, preds, average='weighted')
 
         self.log(f"{stage}_loss", loss, prog_bar=True, on_step=(stage=="train"), on_epoch=True)
         self.log(f"{stage}_acc_ar", acc_ar, prog_bar=True, on_epoch=True, on_step=False)
