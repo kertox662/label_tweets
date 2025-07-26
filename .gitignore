@@ -51,3 +51,9 @@ data/tweets/Labelled_Tweets/test_data_labelled_bak.csv
 data/tweets/Labelled_Tweets/failed.csv
 data/tweets/Labelled_Tweets/removed/failed.csv
 data/tweets/Labelled_Tweets/removed/success.csv
+Refactored/__pycache__
+Refactored/data
+tb_logs
+Refactored/__init__.pyc
+hp_search_linear.csv
+preprocessing_steps/__pycache__
