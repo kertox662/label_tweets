@@ -57,3 +57,7 @@ tb_logs
 Refactored/__init__.pyc
 hp_search_linear.csv
 preprocessing_steps/__pycache__
+pre_trained_sentence_st
+hp_search_one_layer.csv
+hp_search_two_layer.csv
+.DS_Store

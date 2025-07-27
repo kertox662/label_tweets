@@ -1,5 +1,5 @@
 # Configuration constants for the tweet classification project
-
+import torch.nn as nn
 # Training parameters
 EPOCHS = 25
 EARLY_STOPPING_EPOCH = 5
@@ -27,19 +27,24 @@ base_datamodule_params = {
     "random_state": 2025
 }
 
+
+import os
+
 # Model options for hyperparameter search
 MODEL_OPTIONS = [
-    "sentence-transformers/all-mpnet-base-v2",
+     "pre_trained_sentence_st" if os.path.exists("pre_trained_sentence_st") else "sentence-transformers/all-mpnet-base-v2"
+    # "sentence-transformers/all-mpnet-base-v2",
+    # "vinai/bertweet-base",
 ]
 
 SOFT_LABEL_OPTIONS = [True, False]
-LEARNING_RATE_OPTIONS = [1e-5, 1e-4, 1e-3]
+LEARNING_RATE_OPTIONS = [1e-4, 1e-3, 5e-3, 1e-2, 5e-2]
 FREEZE_ENCODER_OPTIONS = [True]
-BATCH_SIZE_OPTIONS = [64]
+BATCH_SIZE_OPTIONS = [256, 128, 64, 32, 16]
 OVERSAMPLE_OPTIONS = [False]
 CLASS_WEIGHT_OPTIONS = [True, False]
 
 # Hidden layer options (commented out as they're not used in current search)
-# HIDDEN_DIM_OPTIONS = [64]
-# DROPOUT_OPTIONS = [0.5]
-# ACTIVATION_FUNCTION_OPTIONS = [nn.ReLU()] 
+HIDDEN_DIM_OPTIONS = [64]
+DROPOUT_OPTIONS = [0.25, 0.5, 0.75]
+ACTIVATION_FUNCTION_OPTIONS = [nn.ReLU()] 
