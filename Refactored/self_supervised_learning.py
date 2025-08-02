@@ -15,6 +15,7 @@ import pytorch_lightning as pl
 import torch
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
+from pytorch_lightning.strategies import DDPStrategy
 from sentence_transformers import SentenceTransformer, losses, InputExample
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
@@ -78,24 +79,52 @@ def pre_train_sentence_transformer(
     print("Model Created========================================")
     data = pyreadr.read_r(data_path)['raw_tweets']
     print("Data Read========================================")
-    datamodule = TweetsDataModuleUnSupervised(data=data, batch_size=batch_size)
+    datamodule = TweetsDataModuleUnSupervised(data=data, batch_size=batch_size, num_workers=os.cpu_count() - 1)
     print("Data Module Created ========================================")
     early_stop = EarlyStopping(monitor="val_loss", mode="min", patience=2)
     ckpt = ModelCheckpoint(
         monitor="val_loss",
         dirpath="checkpoints",
+        save_last= True,
         filename="st-ssl-{epoch:02d}-{val_loss:.3f}",
         save_top_k=1,
         mode="min",
     )
 
-    trainer = pl.Trainer(
-        max_epochs=max_epochs,
+    # ------------------------------------------------------------
+    # Build Trainer dynamically so the same script works on CPU,
+    # single-GPU, and multi-GPU (DDP) setups.
+    # ------------------------------------------------------------
+    cuda_gpus = torch.cuda.device_count()
+    mps_available = torch.backends.mps.is_available() and not torch.cuda.is_available()
+    max_steps = 100000
+    val_check_interval = 5000
+    trainer_args = dict(
+        max_steps=max_steps,
+        val_check_interval = val_check_interval,
         callbacks=[early_stop, ckpt],
         logger=TensorBoardLogger("tb_logs", name="st_ssl"),
-        accelerator="auto",
-        devices="auto",
     )
+
+    if cuda_gpus:
+        trainer_args.update(dict(precision="16-mixed"))
+        if cuda_gpus == 1:
+            trainer_args.update(dict(accelerator="gpu", devices=1))
+        else:
+            trainer_args.update(
+                dict(
+                    accelerator="gpu",
+                    devices=cuda_gpus,
+                    strategy=DDPStrategy(find_unused_parameters=False),
+                )
+            )
+    elif mps_available:
+        # Apple-silicon Metal Performance Shaders backend
+        trainer_args.update(dict(accelerator="mps", devices=1, precision="16-mixed"))
+    else:
+        trainer_args.update(dict(accelerator="cpu", devices=1, precision=32))
+
+    trainer = pl.Trainer(**trainer_args)
     print("Trainer Fitting ========================================")
     trainer.fit(model, datamodule)
 

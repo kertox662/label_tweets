@@ -1,4 +1,5 @@
 import torch
+import os
 from torch.utils.data import DataLoader
 import pandas as pd
 import numpy as np
@@ -17,7 +18,13 @@ class TweetsDataModuleUnSupervised(pl.LightningDataModule):
         super().__init__()
         self.data = data.copy()
         self.batch_size = batch_size
-        self.num_workers = num_workers  
+        # Auto-select workers: use all logical CPU cores unless overridden
+        default_workers = os.cpu_count() or 1
+        self.num_workers = default_workers if num_workers is None else num_workers
+
+        # On macOS with MPS backend, enforce single-process dataloader to avoid pickling GPU tensors
+        if torch.backends.mps.is_available() and not torch.cuda.is_available():
+            self.num_workers = 0
 
         self._st_model = SentenceTransformer(model_name)
 
@@ -57,6 +64,9 @@ class TweetsDataModuleUnSupervised(pl.LightningDataModule):
             shuffle=shuffle,
             drop_last=drop_last,
             collate_fn=self._st_model.smart_batching_collate,
+            num_workers=self.num_workers,
+            pin_memory=True,
+            persistent_workers=self.num_workers > 0,
         )
 
     def train_dataloader(self):
