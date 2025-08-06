@@ -25,7 +25,9 @@ class BertweetClassifier(pl.LightningModule):
         self.use_soft_labels = use_soft_labels
         
         # 1) encoder
-        self.encoder = SentenceTransformer(transformer_model_name)
+        # model_path = "~/projects/def-jhoey/atjhin/model/" + transformer_model_name
+        model_path = '/home/atjhin/projects/def-jhoey/atjhin/model/sentence-transformer-trained-tweet'
+        self.encoder = SentenceTransformer(model_path)
 
         # 2) Set the classifier that will run on the embedding
         #    If it is provided, just use that, otherwise make

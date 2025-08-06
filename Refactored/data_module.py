@@ -27,7 +27,7 @@ class TweetsDataModule(pl.LightningDataModule):
         self._random_state = random_state
     
     @classmethod
-    def read_csv(cls, filename: str = "Refactored/data/final_combined.csv", remove_disagreements: bool = False,
+    def read_csv(cls, filename: str = "data/train_master.csv", remove_disagreements: bool = False,
                  batch_size: int = None, target_col: str = 'AR', test_size=0.2, validation_size=0.2,
                  oversample=False, random_state=2025):
         tweets_labeled = pd.read_csv(filename)
