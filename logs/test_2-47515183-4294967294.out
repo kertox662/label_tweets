@@ -1,0 +1,1001 @@
+/lustre06/project/6006845/atjhin/label_tweets/Refactored/data_module.py:34: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  tweets_labeled['AR'].replace({4: 2}, inplace=True)
+/lustre06/project/6006845/atjhin/label_tweets/Refactored/data_module.py:35: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  tweets_labeled['MB'].replace({4: 2}, inplace=True)
+/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/lightning_fabric/plugins/environments/slurm.py:204: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python /lustre06/project/6006845/atjhin/label_tweets/Refact ...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loading `train_dataloader` to estimate number of stepping batches.
+/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (34) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+
+  | Name       | Type                | Params | Mode 
+-----------------------------------------------------------
+0 | encoder    | SentenceTransformer | 109 M  | train
+1 | classifier | Linear              | 2.3 K  | train
+2 | loss_fn    | BCEWithLogitsLoss   | 0      | train
+-----------------------------------------------------------
+2.3 K     Trainable params
+109 M     Non-trainable params
+109 M     Total params
+437.938   Total estimated model params size (MB)
+5         Modules in train mode
+228       Modules in eval mode
+MODEL_OPTIONS: ['sentence-transformer-trained-tweet']
+BATCH_SIZE_OPTIONS: [64]
+OVERSAMPLE_OPTIONS: [False]
+LEARNING_RATE_OPTIONS: [0.0001, 0.001, 0.005, 0.01, 0.05]
+CLASS_WEIGHT_OPTIONS: [True, False]
+----------------------------------------------------------------------------------------------------
+
+batch: 64, oversample: False
+freeze: True, lr: 0.0001, class_weight: True
+Shape of training/validation/test: 2218/555/694
+Label distribution for training data: y
+2    886
+0    854
+1    478
+Name: count, dtype: int64
+Shape of training/validation/test: 2218/555/694
+Label distribution for training data: y
+2    886
+0    854
+1    478
+Name: count, dtype: int64
+
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+/lustre06/project/6006845/atjhin/label_tweets/Refactored/data_module.py:99: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /tmp/build_wheels_tmp.6999/python-3.11/torch/torch/csrc/utils/tensor_new.cpp:254.)
+  torch.tensor([l for _, _, l, _, _ in batch], dtype=torch.float32),
+
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]
+Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:02<00:02,  0.44it/s]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:02<00:00,  0.88it/s]
+                                                                           
+
+Training: |          | 0/? [00:00<?, ?it/s]
+Training:   0%|          | 0/34 [00:00<?, ?it/s]
+Epoch 0:   0%|          | 0/34 [00:00<?, ?it/s] /lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:   3%|▎         | 1/34 [00:00<00:13,  2.46it/s]
+Epoch 0:   3%|▎         | 1/34 [00:00<00:13,  2.45it/s, v_num=1, train_loss_step=0.808]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:   6%|▌         | 2/34 [00:00<00:07,  4.46it/s, v_num=1, train_loss_step=0.808]
+Epoch 0:   6%|▌         | 2/34 [00:00<00:07,  4.46it/s, v_num=1, train_loss_step=0.812]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:   9%|▉         | 3/34 [00:00<00:04,  6.34it/s, v_num=1, train_loss_step=0.812]
+Epoch 0:   9%|▉         | 3/34 [00:00<00:04,  6.33it/s, v_num=1, train_loss_step=0.804]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  12%|█▏        | 4/34 [00:00<00:03,  8.02it/s, v_num=1, train_loss_step=0.804]
+Epoch 0:  12%|█▏        | 4/34 [00:00<00:03,  8.02it/s, v_num=1, train_loss_step=0.804]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  15%|█▍        | 5/34 [00:00<00:03,  9.57it/s, v_num=1, train_loss_step=0.804]
+Epoch 0:  15%|█▍        | 5/34 [00:00<00:03,  9.57it/s, v_num=1, train_loss_step=0.794]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  18%|█▊        | 6/34 [00:00<00:02, 10.97it/s, v_num=1, train_loss_step=0.794]
+Epoch 0:  18%|█▊        | 6/34 [00:00<00:02, 10.96it/s, v_num=1, train_loss_step=0.812]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  21%|██        | 7/34 [00:00<00:02, 12.24it/s, v_num=1, train_loss_step=0.812]
+Epoch 0:  21%|██        | 7/34 [00:00<00:02, 12.24it/s, v_num=1, train_loss_step=0.820]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  24%|██▎       | 8/34 [00:00<00:01, 13.37it/s, v_num=1, train_loss_step=0.820]
+Epoch 0:  24%|██▎       | 8/34 [00:00<00:01, 13.37it/s, v_num=1, train_loss_step=0.820]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  26%|██▋       | 9/34 [00:00<00:01, 14.48it/s, v_num=1, train_loss_step=0.820]
+Epoch 0:  26%|██▋       | 9/34 [00:00<00:01, 14.48it/s, v_num=1, train_loss_step=0.791]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  29%|██▉       | 10/34 [00:00<00:01, 15.44it/s, v_num=1, train_loss_step=0.791]
+Epoch 0:  29%|██▉       | 10/34 [00:00<00:01, 15.44it/s, v_num=1, train_loss_step=0.801]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  32%|███▏      | 11/34 [00:00<00:01, 16.39it/s, v_num=1, train_loss_step=0.801]
+Epoch 0:  32%|███▏      | 11/34 [00:00<00:01, 16.39it/s, v_num=1, train_loss_step=0.783]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  35%|███▌      | 12/34 [00:00<00:01, 17.30it/s, v_num=1, train_loss_step=0.783]
+Epoch 0:  35%|███▌      | 12/34 [00:00<00:01, 17.30it/s, v_num=1, train_loss_step=0.785]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  38%|███▊      | 13/34 [00:00<00:01, 18.13it/s, v_num=1, train_loss_step=0.785]
+Epoch 0:  38%|███▊      | 13/34 [00:00<00:01, 18.12it/s, v_num=1, train_loss_step=0.780]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  41%|████      | 14/34 [00:00<00:01, 18.93it/s, v_num=1, train_loss_step=0.780]
+Epoch 0:  41%|████      | 14/34 [00:00<00:01, 18.93it/s, v_num=1, train_loss_step=0.807]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  44%|████▍     | 15/34 [00:00<00:00, 19.68it/s, v_num=1, train_loss_step=0.807]
+Epoch 0:  44%|████▍     | 15/34 [00:00<00:00, 19.68it/s, v_num=1, train_loss_step=0.812]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  47%|████▋     | 16/34 [00:00<00:00, 20.35it/s, v_num=1, train_loss_step=0.812]
+Epoch 0:  47%|████▋     | 16/34 [00:00<00:00, 20.35it/s, v_num=1, train_loss_step=0.798]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  50%|█████     | 17/34 [00:00<00:00, 21.03it/s, v_num=1, train_loss_step=0.798]
+Epoch 0:  50%|█████     | 17/34 [00:00<00:00, 21.02it/s, v_num=1, train_loss_step=0.798]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  53%|█████▎    | 18/34 [00:00<00:00, 21.51it/s, v_num=1, train_loss_step=0.798]
+Epoch 0:  53%|█████▎    | 18/34 [00:00<00:00, 21.50it/s, v_num=1, train_loss_step=0.816]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  56%|█████▌    | 19/34 [00:00<00:00, 22.08it/s, v_num=1, train_loss_step=0.816]
+Epoch 0:  56%|█████▌    | 19/34 [00:00<00:00, 22.07it/s, v_num=1, train_loss_step=0.802]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  59%|█████▉    | 20/34 [00:00<00:00, 22.61it/s, v_num=1, train_loss_step=0.802]
+Epoch 0:  59%|█████▉    | 20/34 [00:00<00:00, 22.61it/s, v_num=1, train_loss_step=0.802]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  62%|██████▏   | 21/34 [00:00<00:00, 23.14it/s, v_num=1, train_loss_step=0.802]
+Epoch 0:  62%|██████▏   | 21/34 [00:00<00:00, 23.14it/s, v_num=1, train_loss_step=0.777]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  65%|██████▍   | 22/34 [00:00<00:00, 23.66it/s, v_num=1, train_loss_step=0.777]
+Epoch 0:  65%|██████▍   | 22/34 [00:00<00:00, 23.65it/s, v_num=1, train_loss_step=0.777]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  68%|██████▊   | 23/34 [00:00<00:00, 24.14it/s, v_num=1, train_loss_step=0.777]
+Epoch 0:  68%|██████▊   | 23/34 [00:00<00:00, 24.13it/s, v_num=1, train_loss_step=0.782]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  71%|███████   | 24/34 [00:00<00:00, 24.60it/s, v_num=1, train_loss_step=0.782]
+Epoch 0:  71%|███████   | 24/34 [00:00<00:00, 24.59it/s, v_num=1, train_loss_step=0.777]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  74%|███████▎  | 25/34 [00:00<00:00, 25.04it/s, v_num=1, train_loss_step=0.777]
+Epoch 0:  74%|███████▎  | 25/34 [00:00<00:00, 25.04it/s, v_num=1, train_loss_step=0.787]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  76%|███████▋  | 26/34 [00:01<00:00, 25.43it/s, v_num=1, train_loss_step=0.787]
+Epoch 0:  76%|███████▋  | 26/34 [00:01<00:00, 25.43it/s, v_num=1, train_loss_step=0.792]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  79%|███████▉  | 27/34 [00:01<00:00, 25.84it/s, v_num=1, train_loss_step=0.792]
+Epoch 0:  79%|███████▉  | 27/34 [00:01<00:00, 25.84it/s, v_num=1, train_loss_step=0.768]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  82%|████████▏ | 28/34 [00:01<00:00, 26.23it/s, v_num=1, train_loss_step=0.768]
+Epoch 0:  82%|████████▏ | 28/34 [00:01<00:00, 26.22it/s, v_num=1, train_loss_step=0.782]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  85%|████████▌ | 29/34 [00:01<00:00, 26.60it/s, v_num=1, train_loss_step=0.782]
+Epoch 0:  85%|████████▌ | 29/34 [00:01<00:00, 26.60it/s, v_num=1, train_loss_step=0.773]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  88%|████████▊ | 30/34 [00:01<00:00, 26.96it/s, v_num=1, train_loss_step=0.773]
+Epoch 0:  88%|████████▊ | 30/34 [00:01<00:00, 26.96it/s, v_num=1, train_loss_step=0.767]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  91%|█████████ | 31/34 [00:01<00:00, 27.30it/s, v_num=1, train_loss_step=0.767]
+Epoch 0:  91%|█████████ | 31/34 [00:01<00:00, 27.30it/s, v_num=1, train_loss_step=0.786]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  94%|█████████▍| 32/34 [00:01<00:00, 27.64it/s, v_num=1, train_loss_step=0.786]
+Epoch 0:  94%|█████████▍| 32/34 [00:01<00:00, 27.63it/s, v_num=1, train_loss_step=0.770]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0:  97%|█████████▋| 33/34 [00:01<00:00, 27.92it/s, v_num=1, train_loss_step=0.770]
+Epoch 0:  97%|█████████▋| 33/34 [00:01<00:00, 27.92it/s, v_num=1, train_loss_step=0.763]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 0: 100%|██████████| 34/34 [00:01<00:00, 28.22it/s, v_num=1, train_loss_step=0.763]
+Epoch 0: 100%|██████████| 34/34 [00:01<00:00, 28.21it/s, v_num=1, train_loss_step=0.790]
+
+Validation: |          | 0/? [00:00<?, ?it/s][A
+
+Validation:   0%|          | 0/9 [00:00<?, ?it/s][A
+
+Validation DataLoader 0:   0%|          | 0/9 [00:00<?, ?it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  11%|█         | 1/9 [00:00<00:00, 48.41it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  22%|██▏       | 2/9 [00:00<00:00, 47.41it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  33%|███▎      | 3/9 [00:00<00:00, 47.05it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  44%|████▍     | 4/9 [00:00<00:00, 46.27it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  56%|█████▌    | 5/9 [00:00<00:00, 45.77it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  67%|██████▋   | 6/9 [00:00<00:00, 45.80it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  78%|███████▊  | 7/9 [00:00<00:00, 46.10it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  89%|████████▉ | 8/9 [00:00<00:00, 46.18it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0: 100%|██████████| 9/9 [00:00<00:00, 46.47it/s][A
+
+                                                                      [A
+Epoch 0: 100%|██████████| 34/34 [00:01<00:00, 24.09it/s, v_num=1, train_loss_step=0.790, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235]
+Epoch 0: 100%|██████████| 34/34 [00:01<00:00, 24.07it/s, v_num=1, train_loss_step=0.790, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]Metric val_f1_ar improved. New best score: 0.222
+
+Epoch 0:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.790, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]         
+Epoch 1:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.790, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:   3%|▎         | 1/34 [00:00<00:00, 42.11it/s, v_num=1, train_loss_step=0.790, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:   3%|▎         | 1/34 [00:00<00:00, 41.74it/s, v_num=1, train_loss_step=0.780, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:   6%|▌         | 2/34 [00:00<00:00, 43.29it/s, v_num=1, train_loss_step=0.780, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:   6%|▌         | 2/34 [00:00<00:00, 43.10it/s, v_num=1, train_loss_step=0.764, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:   9%|▉         | 3/34 [00:00<00:00, 42.99it/s, v_num=1, train_loss_step=0.764, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:   9%|▉         | 3/34 [00:00<00:00, 42.85it/s, v_num=1, train_loss_step=0.777, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  12%|█▏        | 4/34 [00:00<00:00, 42.73it/s, v_num=1, train_loss_step=0.777, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  12%|█▏        | 4/34 [00:00<00:00, 42.63it/s, v_num=1, train_loss_step=0.760, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  15%|█▍        | 5/34 [00:00<00:00, 42.84it/s, v_num=1, train_loss_step=0.760, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  15%|█▍        | 5/34 [00:00<00:00, 42.77it/s, v_num=1, train_loss_step=0.760, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  18%|█▊        | 6/34 [00:00<00:00, 43.05it/s, v_num=1, train_loss_step=0.760, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  18%|█▊        | 6/34 [00:00<00:00, 42.99it/s, v_num=1, train_loss_step=0.756, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  21%|██        | 7/34 [00:00<00:00, 43.16it/s, v_num=1, train_loss_step=0.756, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  21%|██        | 7/34 [00:00<00:00, 43.10it/s, v_num=1, train_loss_step=0.766, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  24%|██▎       | 8/34 [00:00<00:00, 43.02it/s, v_num=1, train_loss_step=0.766, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  24%|██▎       | 8/34 [00:00<00:00, 42.97it/s, v_num=1, train_loss_step=0.774, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  26%|██▋       | 9/34 [00:00<00:00, 43.11it/s, v_num=1, train_loss_step=0.774, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  26%|██▋       | 9/34 [00:00<00:00, 43.07it/s, v_num=1, train_loss_step=0.742, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  29%|██▉       | 10/34 [00:00<00:00, 42.99it/s, v_num=1, train_loss_step=0.742, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  29%|██▉       | 10/34 [00:00<00:00, 42.95it/s, v_num=1, train_loss_step=0.754, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  32%|███▏      | 11/34 [00:00<00:00, 42.95it/s, v_num=1, train_loss_step=0.754, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  32%|███▏      | 11/34 [00:00<00:00, 42.92it/s, v_num=1, train_loss_step=0.759, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  35%|███▌      | 12/34 [00:00<00:00, 43.06it/s, v_num=1, train_loss_step=0.759, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  35%|███▌      | 12/34 [00:00<00:00, 43.02it/s, v_num=1, train_loss_step=0.731, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  38%|███▊      | 13/34 [00:00<00:00, 43.09it/s, v_num=1, train_loss_step=0.731, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  38%|███▊      | 13/34 [00:00<00:00, 43.06it/s, v_num=1, train_loss_step=0.736, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  41%|████      | 14/34 [00:00<00:00, 43.19it/s, v_num=1, train_loss_step=0.736, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  41%|████      | 14/34 [00:00<00:00, 43.16it/s, v_num=1, train_loss_step=0.753, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  44%|████▍     | 15/34 [00:00<00:00, 43.27it/s, v_num=1, train_loss_step=0.753, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  44%|████▍     | 15/34 [00:00<00:00, 43.24it/s, v_num=1, train_loss_step=0.753, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  47%|████▋     | 16/34 [00:00<00:00, 43.31it/s, v_num=1, train_loss_step=0.753, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  47%|████▋     | 16/34 [00:00<00:00, 43.29it/s, v_num=1, train_loss_step=0.735, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  50%|█████     | 17/34 [00:00<00:00, 43.10it/s, v_num=1, train_loss_step=0.735, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  50%|█████     | 17/34 [00:00<00:00, 43.07it/s, v_num=1, train_loss_step=0.745, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  53%|█████▎    | 18/34 [00:00<00:00, 43.03it/s, v_num=1, train_loss_step=0.745, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  53%|█████▎    | 18/34 [00:00<00:00, 43.01it/s, v_num=1, train_loss_step=0.725, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  56%|█████▌    | 19/34 [00:00<00:00, 43.20it/s, v_num=1, train_loss_step=0.725, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  56%|█████▌    | 19/34 [00:00<00:00, 43.18it/s, v_num=1, train_loss_step=0.740, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  59%|█████▉    | 20/34 [00:00<00:00, 43.25it/s, v_num=1, train_loss_step=0.740, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  59%|█████▉    | 20/34 [00:00<00:00, 43.23it/s, v_num=1, train_loss_step=0.722, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  62%|██████▏   | 21/34 [00:00<00:00, 43.23it/s, v_num=1, train_loss_step=0.722, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  62%|██████▏   | 21/34 [00:00<00:00, 43.21it/s, v_num=1, train_loss_step=0.723, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  65%|██████▍   | 22/34 [00:00<00:00, 43.27it/s, v_num=1, train_loss_step=0.723, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  65%|██████▍   | 22/34 [00:00<00:00, 43.26it/s, v_num=1, train_loss_step=0.728, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  68%|██████▊   | 23/34 [00:00<00:00, 43.31it/s, v_num=1, train_loss_step=0.728, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  68%|██████▊   | 23/34 [00:00<00:00, 43.30it/s, v_num=1, train_loss_step=0.726, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  71%|███████   | 24/34 [00:00<00:00, 43.27it/s, v_num=1, train_loss_step=0.726, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  71%|███████   | 24/34 [00:00<00:00, 43.25it/s, v_num=1, train_loss_step=0.695, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  74%|███████▎  | 25/34 [00:00<00:00, 43.32it/s, v_num=1, train_loss_step=0.695, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  74%|███████▎  | 25/34 [00:00<00:00, 43.30it/s, v_num=1, train_loss_step=0.721, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  76%|███████▋  | 26/34 [00:00<00:00, 43.38it/s, v_num=1, train_loss_step=0.721, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  76%|███████▋  | 26/34 [00:00<00:00, 43.36it/s, v_num=1, train_loss_step=0.719, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  79%|███████▉  | 27/34 [00:00<00:00, 43.41it/s, v_num=1, train_loss_step=0.719, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  79%|███████▉  | 27/34 [00:00<00:00, 43.40it/s, v_num=1, train_loss_step=0.722, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  82%|████████▏ | 28/34 [00:00<00:00, 43.44it/s, v_num=1, train_loss_step=0.722, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  82%|████████▏ | 28/34 [00:00<00:00, 43.43it/s, v_num=1, train_loss_step=0.726, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  85%|████████▌ | 29/34 [00:00<00:00, 43.45it/s, v_num=1, train_loss_step=0.726, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  85%|████████▌ | 29/34 [00:00<00:00, 43.44it/s, v_num=1, train_loss_step=0.710, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  88%|████████▊ | 30/34 [00:00<00:00, 42.84it/s, v_num=1, train_loss_step=0.710, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  88%|████████▊ | 30/34 [00:00<00:00, 42.83it/s, v_num=1, train_loss_step=0.686, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  91%|█████████ | 31/34 [00:00<00:00, 42.81it/s, v_num=1, train_loss_step=0.686, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  91%|█████████ | 31/34 [00:00<00:00, 42.80it/s, v_num=1, train_loss_step=0.702, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  94%|█████████▍| 32/34 [00:00<00:00, 42.84it/s, v_num=1, train_loss_step=0.702, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  94%|█████████▍| 32/34 [00:00<00:00, 42.83it/s, v_num=1, train_loss_step=0.707, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1:  97%|█████████▋| 33/34 [00:00<00:00, 42.90it/s, v_num=1, train_loss_step=0.707, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1:  97%|█████████▋| 33/34 [00:00<00:00, 42.89it/s, v_num=1, train_loss_step=0.706, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 1: 100%|██████████| 34/34 [00:00<00:00, 42.92it/s, v_num=1, train_loss_step=0.706, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1: 100%|██████████| 34/34 [00:00<00:00, 42.91it/s, v_num=1, train_loss_step=0.692, val_loss=0.769, val_acc_ar=0.261, val_f1_ar=0.222, val_acc_mb=0.274, val_f1_mb=0.235, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+
+Validation: |          | 0/? [00:00<?, ?it/s][A
+
+Validation:   0%|          | 0/9 [00:00<?, ?it/s][A
+
+Validation DataLoader 0:   0%|          | 0/9 [00:00<?, ?it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  11%|█         | 1/9 [00:00<00:00, 48.33it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  22%|██▏       | 2/9 [00:00<00:00, 47.47it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  33%|███▎      | 3/9 [00:00<00:00, 47.03it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  44%|████▍     | 4/9 [00:00<00:00, 46.35it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  56%|█████▌    | 5/9 [00:00<00:00, 45.88it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  67%|██████▋   | 6/9 [00:00<00:00, 45.94it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  78%|███████▊  | 7/9 [00:00<00:00, 46.22it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  89%|████████▉ | 8/9 [00:00<00:00, 46.29it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0: 100%|██████████| 9/9 [00:00<00:00, 46.64it/s][A
+
+                                                                      [A
+Epoch 1: 100%|██████████| 34/34 [00:00<00:00, 34.16it/s, v_num=1, train_loss_step=0.692, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.792, train_acc_ar=0.265, train_f1_ar=0.229, train_acc_mb=0.265, train_f1_mb=0.232]
+Epoch 1: 100%|██████████| 34/34 [00:00<00:00, 34.11it/s, v_num=1, train_loss_step=0.692, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]Metric val_f1_ar improved by 0.148 >= min_delta = 0.01. New best score: 0.370
+
+Epoch 1:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.692, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]         
+Epoch 2:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.692, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:   3%|▎         | 1/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.692, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:   3%|▎         | 1/34 [00:00<00:00, 43.49it/s, v_num=1, train_loss_step=0.712, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:   6%|▌         | 2/34 [00:00<00:00, 42.87it/s, v_num=1, train_loss_step=0.712, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:   6%|▌         | 2/34 [00:00<00:00, 42.67it/s, v_num=1, train_loss_step=0.711, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:   9%|▉         | 3/34 [00:00<00:00, 42.74it/s, v_num=1, train_loss_step=0.711, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:   9%|▉         | 3/34 [00:00<00:00, 42.62it/s, v_num=1, train_loss_step=0.696, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  12%|█▏        | 4/34 [00:00<00:00, 43.37it/s, v_num=1, train_loss_step=0.696, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  12%|█▏        | 4/34 [00:00<00:00, 43.28it/s, v_num=1, train_loss_step=0.686, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  15%|█▍        | 5/34 [00:00<00:00, 43.69it/s, v_num=1, train_loss_step=0.686, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  15%|█▍        | 5/34 [00:00<00:00, 43.61it/s, v_num=1, train_loss_step=0.703, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  18%|█▊        | 6/34 [00:00<00:00, 43.76it/s, v_num=1, train_loss_step=0.703, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  18%|█▊        | 6/34 [00:00<00:00, 43.70it/s, v_num=1, train_loss_step=0.698, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  21%|██        | 7/34 [00:00<00:00, 43.74it/s, v_num=1, train_loss_step=0.698, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  21%|██        | 7/34 [00:00<00:00, 43.68it/s, v_num=1, train_loss_step=0.679, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  24%|██▎       | 8/34 [00:00<00:00, 43.77it/s, v_num=1, train_loss_step=0.679, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  24%|██▎       | 8/34 [00:00<00:00, 43.72it/s, v_num=1, train_loss_step=0.674, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  26%|██▋       | 9/34 [00:00<00:00, 43.90it/s, v_num=1, train_loss_step=0.674, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  26%|██▋       | 9/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.685, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  29%|██▉       | 10/34 [00:00<00:00, 43.71it/s, v_num=1, train_loss_step=0.685, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  29%|██▉       | 10/34 [00:00<00:00, 43.67it/s, v_num=1, train_loss_step=0.679, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  32%|███▏      | 11/34 [00:00<00:00, 43.57it/s, v_num=1, train_loss_step=0.679, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  32%|███▏      | 11/34 [00:00<00:00, 43.53it/s, v_num=1, train_loss_step=0.679, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  35%|███▌      | 12/34 [00:00<00:00, 43.70it/s, v_num=1, train_loss_step=0.679, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  35%|███▌      | 12/34 [00:00<00:00, 43.67it/s, v_num=1, train_loss_step=0.674, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  38%|███▊      | 13/34 [00:00<00:00, 43.72it/s, v_num=1, train_loss_step=0.674, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  38%|███▊      | 13/34 [00:00<00:00, 43.69it/s, v_num=1, train_loss_step=0.655, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  41%|████      | 14/34 [00:00<00:00, 43.81it/s, v_num=1, train_loss_step=0.655, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  41%|████      | 14/34 [00:00<00:00, 43.78it/s, v_num=1, train_loss_step=0.671, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  44%|████▍     | 15/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.671, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  44%|████▍     | 15/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.666, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  47%|████▋     | 16/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.666, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  47%|████▋     | 16/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.657, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  50%|█████     | 17/34 [00:00<00:00, 43.90it/s, v_num=1, train_loss_step=0.657, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  50%|█████     | 17/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.687, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  53%|█████▎    | 18/34 [00:00<00:00, 43.94it/s, v_num=1, train_loss_step=0.687, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  53%|█████▎    | 18/34 [00:00<00:00, 43.92it/s, v_num=1, train_loss_step=0.662, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  56%|█████▌    | 19/34 [00:00<00:00, 43.99it/s, v_num=1, train_loss_step=0.662, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  56%|█████▌    | 19/34 [00:00<00:00, 43.96it/s, v_num=1, train_loss_step=0.657, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  59%|█████▉    | 20/34 [00:00<00:00, 43.99it/s, v_num=1, train_loss_step=0.657, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  59%|█████▉    | 20/34 [00:00<00:00, 43.97it/s, v_num=1, train_loss_step=0.645, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  62%|██████▏   | 21/34 [00:00<00:00, 44.02it/s, v_num=1, train_loss_step=0.645, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  62%|██████▏   | 21/34 [00:00<00:00, 44.00it/s, v_num=1, train_loss_step=0.659, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  65%|██████▍   | 22/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.659, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  65%|██████▍   | 22/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.671, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  68%|██████▊   | 23/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.671, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  68%|██████▊   | 23/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.650, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  71%|███████   | 24/34 [00:00<00:00, 43.92it/s, v_num=1, train_loss_step=0.650, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  71%|███████   | 24/34 [00:00<00:00, 43.90it/s, v_num=1, train_loss_step=0.663, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  74%|███████▎  | 25/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.663, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  74%|███████▎  | 25/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.633, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  76%|███████▋  | 26/34 [00:00<00:00, 43.95it/s, v_num=1, train_loss_step=0.633, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  76%|███████▋  | 26/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.646, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  79%|███████▉  | 27/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.646, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  79%|███████▉  | 27/34 [00:00<00:00, 43.86it/s, v_num=1, train_loss_step=0.664, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  82%|████████▏ | 28/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.664, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  82%|████████▏ | 28/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.641, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  85%|████████▌ | 29/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.641, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  85%|████████▌ | 29/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.654, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  88%|████████▊ | 30/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.654, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  88%|████████▊ | 30/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.632, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  91%|█████████ | 31/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.632, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  91%|█████████ | 31/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.639, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  94%|█████████▍| 32/34 [00:00<00:00, 43.84it/s, v_num=1, train_loss_step=0.639, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  94%|█████████▍| 32/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.651, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2:  97%|█████████▋| 33/34 [00:00<00:00, 43.67it/s, v_num=1, train_loss_step=0.651, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2:  97%|█████████▋| 33/34 [00:00<00:00, 43.65it/s, v_num=1, train_loss_step=0.674, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 2: 100%|██████████| 34/34 [00:00<00:00, 43.69it/s, v_num=1, train_loss_step=0.674, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2: 100%|██████████| 34/34 [00:00<00:00, 43.68it/s, v_num=1, train_loss_step=0.604, val_loss=0.698, val_acc_ar=0.382, val_f1_ar=0.370, val_acc_mb=0.391, val_f1_mb=0.382, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+
+Validation: |          | 0/? [00:00<?, ?it/s][A
+
+Validation:   0%|          | 0/9 [00:00<?, ?it/s][A
+
+Validation DataLoader 0:   0%|          | 0/9 [00:00<?, ?it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  11%|█         | 1/9 [00:00<00:00, 48.44it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  22%|██▏       | 2/9 [00:00<00:00, 47.43it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  33%|███▎      | 3/9 [00:00<00:00, 47.07it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  44%|████▍     | 4/9 [00:00<00:00, 46.34it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  56%|█████▌    | 5/9 [00:00<00:00, 45.80it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  67%|██████▋   | 6/9 [00:00<00:00, 45.84it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  78%|███████▊  | 7/9 [00:00<00:00, 46.12it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  89%|████████▉ | 8/9 [00:00<00:00, 46.21it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0: 100%|██████████| 9/9 [00:00<00:00, 46.58it/s][A
+
+                                                                      [A
+Epoch 2: 100%|██████████| 34/34 [00:00<00:00, 34.65it/s, v_num=1, train_loss_step=0.604, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.735, train_acc_ar=0.309, train_f1_ar=0.287, train_acc_mb=0.317, train_f1_mb=0.298]
+Epoch 2: 100%|██████████| 34/34 [00:00<00:00, 34.61it/s, v_num=1, train_loss_step=0.604, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]Metric val_f1_ar improved by 0.125 >= min_delta = 0.01. New best score: 0.495
+
+Epoch 2:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.604, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]         
+Epoch 3:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.604, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:   3%|▎         | 1/34 [00:00<00:00, 44.72it/s, v_num=1, train_loss_step=0.604, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:   3%|▎         | 1/34 [00:00<00:00, 44.32it/s, v_num=1, train_loss_step=0.626, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:   6%|▌         | 2/34 [00:00<00:00, 45.24it/s, v_num=1, train_loss_step=0.626, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:   6%|▌         | 2/34 [00:00<00:00, 45.03it/s, v_num=1, train_loss_step=0.632, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:   9%|▉         | 3/34 [00:00<00:00, 44.71it/s, v_num=1, train_loss_step=0.632, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:   9%|▉         | 3/34 [00:00<00:00, 44.58it/s, v_num=1, train_loss_step=0.640, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  12%|█▏        | 4/34 [00:00<00:00, 44.22it/s, v_num=1, train_loss_step=0.640, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  12%|█▏        | 4/34 [00:00<00:00, 44.12it/s, v_num=1, train_loss_step=0.634, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  15%|█▍        | 5/34 [00:00<00:00, 44.19it/s, v_num=1, train_loss_step=0.634, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  15%|█▍        | 5/34 [00:00<00:00, 44.11it/s, v_num=1, train_loss_step=0.650, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  18%|█▊        | 6/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.650, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  18%|█▊        | 6/34 [00:00<00:00, 43.78it/s, v_num=1, train_loss_step=0.619, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  21%|██        | 7/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.619, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  21%|██        | 7/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.641, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  24%|██▎       | 8/34 [00:00<00:00, 43.92it/s, v_num=1, train_loss_step=0.641, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  24%|██▎       | 8/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.616, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  26%|██▋       | 9/34 [00:00<00:00, 44.04it/s, v_num=1, train_loss_step=0.616, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  26%|██▋       | 9/34 [00:00<00:00, 44.00it/s, v_num=1, train_loss_step=0.624, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  29%|██▉       | 10/34 [00:00<00:00, 44.12it/s, v_num=1, train_loss_step=0.624, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  29%|██▉       | 10/34 [00:00<00:00, 44.08it/s, v_num=1, train_loss_step=0.611, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  32%|███▏      | 11/34 [00:00<00:00, 44.11it/s, v_num=1, train_loss_step=0.611, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  32%|███▏      | 11/34 [00:00<00:00, 44.08it/s, v_num=1, train_loss_step=0.626, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  35%|███▌      | 12/34 [00:00<00:00, 44.16it/s, v_num=1, train_loss_step=0.626, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  35%|███▌      | 12/34 [00:00<00:00, 44.13it/s, v_num=1, train_loss_step=0.615, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  38%|███▊      | 13/34 [00:00<00:00, 44.12it/s, v_num=1, train_loss_step=0.615, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  38%|███▊      | 13/34 [00:00<00:00, 44.09it/s, v_num=1, train_loss_step=0.637, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  41%|████      | 14/34 [00:00<00:00, 43.98it/s, v_num=1, train_loss_step=0.637, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  41%|████      | 14/34 [00:00<00:00, 43.95it/s, v_num=1, train_loss_step=0.633, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  44%|████▍     | 15/34 [00:00<00:00, 43.96it/s, v_num=1, train_loss_step=0.633, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  44%|████▍     | 15/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.656, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  47%|████▋     | 16/34 [00:00<00:00, 43.99it/s, v_num=1, train_loss_step=0.656, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  47%|████▋     | 16/34 [00:00<00:00, 43.97it/s, v_num=1, train_loss_step=0.645, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  50%|█████     | 17/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.645, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  50%|█████     | 17/34 [00:00<00:00, 43.86it/s, v_num=1, train_loss_step=0.627, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  53%|█████▎    | 18/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.627, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  53%|█████▎    | 18/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.599, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  56%|█████▌    | 19/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.599, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  56%|█████▌    | 19/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.643, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  59%|█████▉    | 20/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.643, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  59%|█████▉    | 20/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.614, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  62%|██████▏   | 21/34 [00:00<00:00, 43.80it/s, v_num=1, train_loss_step=0.614, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  62%|██████▏   | 21/34 [00:00<00:00, 43.78it/s, v_num=1, train_loss_step=0.599, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  65%|██████▍   | 22/34 [00:00<00:00, 43.86it/s, v_num=1, train_loss_step=0.599, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  65%|██████▍   | 22/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.635, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  68%|██████▊   | 23/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.635, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  68%|██████▊   | 23/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.658, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  71%|███████   | 24/34 [00:00<00:00, 43.84it/s, v_num=1, train_loss_step=0.658, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  71%|███████   | 24/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.632, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  74%|███████▎  | 25/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.632, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  74%|███████▎  | 25/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.628, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  76%|███████▋  | 26/34 [00:00<00:00, 43.80it/s, v_num=1, train_loss_step=0.628, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  76%|███████▋  | 26/34 [00:00<00:00, 43.78it/s, v_num=1, train_loss_step=0.606, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  79%|███████▉  | 27/34 [00:00<00:00, 43.81it/s, v_num=1, train_loss_step=0.606, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  79%|███████▉  | 27/34 [00:00<00:00, 43.80it/s, v_num=1, train_loss_step=0.591, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  82%|████████▏ | 28/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.591, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  82%|████████▏ | 28/34 [00:00<00:00, 43.81it/s, v_num=1, train_loss_step=0.626, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  85%|████████▌ | 29/34 [00:00<00:00, 43.72it/s, v_num=1, train_loss_step=0.626, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  85%|████████▌ | 29/34 [00:00<00:00, 43.71it/s, v_num=1, train_loss_step=0.625, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  88%|████████▊ | 30/34 [00:00<00:00, 43.74it/s, v_num=1, train_loss_step=0.625, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  88%|████████▊ | 30/34 [00:00<00:00, 43.73it/s, v_num=1, train_loss_step=0.598, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  91%|█████████ | 31/34 [00:00<00:00, 43.78it/s, v_num=1, train_loss_step=0.598, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  91%|█████████ | 31/34 [00:00<00:00, 43.77it/s, v_num=1, train_loss_step=0.596, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  94%|█████████▍| 32/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.596, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  94%|█████████▍| 32/34 [00:00<00:00, 43.80it/s, v_num=1, train_loss_step=0.608, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3:  97%|█████████▋| 33/34 [00:00<00:00, 43.79it/s, v_num=1, train_loss_step=0.608, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3:  97%|█████████▋| 33/34 [00:00<00:00, 43.77it/s, v_num=1, train_loss_step=0.594, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 3: 100%|██████████| 34/34 [00:00<00:00, 43.78it/s, v_num=1, train_loss_step=0.594, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3: 100%|██████████| 34/34 [00:00<00:00, 43.76it/s, v_num=1, train_loss_step=0.596, val_loss=0.640, val_acc_ar=0.533, val_f1_ar=0.495, val_acc_mb=0.546, val_f1_mb=0.505, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+
+Validation: |          | 0/? [00:00<?, ?it/s][A
+
+Validation:   0%|          | 0/9 [00:00<?, ?it/s][A
+
+Validation DataLoader 0:   0%|          | 0/9 [00:00<?, ?it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  11%|█         | 1/9 [00:00<00:00, 48.68it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  22%|██▏       | 2/9 [00:00<00:00, 47.46it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  33%|███▎      | 3/9 [00:00<00:00, 47.13it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  44%|████▍     | 4/9 [00:00<00:00, 46.31it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  56%|█████▌    | 5/9 [00:00<00:00, 45.87it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  67%|██████▋   | 6/9 [00:00<00:00, 45.93it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  78%|███████▊  | 7/9 [00:00<00:00, 46.25it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  89%|████████▉ | 8/9 [00:00<00:00, 46.18it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0: 100%|██████████| 9/9 [00:00<00:00, 46.56it/s][A
+
+                                                                      [A
+Epoch 3: 100%|██████████| 34/34 [00:00<00:00, 34.71it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.666, train_acc_ar=0.471, train_f1_ar=0.461, train_acc_mb=0.490, train_f1_mb=0.480]
+Epoch 3: 100%|██████████| 34/34 [00:00<00:00, 34.66it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]Metric val_f1_ar improved by 0.062 >= min_delta = 0.01. New best score: 0.557
+
+Epoch 3:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]         
+Epoch 4:   0%|          | 0/34 [00:00<?, ?it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:   3%|▎         | 1/34 [00:00<00:00, 43.60it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:   3%|▎         | 1/34 [00:00<00:00, 43.22it/s, v_num=1, train_loss_step=0.588, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:   6%|▌         | 2/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.588, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:   6%|▌         | 2/34 [00:00<00:00, 43.63it/s, v_num=1, train_loss_step=0.607, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:   9%|▉         | 3/34 [00:00<00:00, 44.55it/s, v_num=1, train_loss_step=0.607, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:   9%|▉         | 3/34 [00:00<00:00, 44.42it/s, v_num=1, train_loss_step=0.600, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  12%|█▏        | 4/34 [00:00<00:00, 44.38it/s, v_num=1, train_loss_step=0.600, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  12%|█▏        | 4/34 [00:00<00:00, 44.28it/s, v_num=1, train_loss_step=0.590, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  15%|█▍        | 5/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.590, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  15%|█▍        | 5/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  18%|█▊        | 6/34 [00:00<00:00, 43.94it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  18%|█▊        | 6/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.625, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  21%|██        | 7/34 [00:00<00:00, 43.66it/s, v_num=1, train_loss_step=0.625, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  21%|██        | 7/34 [00:00<00:00, 43.61it/s, v_num=1, train_loss_step=0.626, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  24%|██▎       | 8/34 [00:00<00:00, 43.71it/s, v_num=1, train_loss_step=0.626, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  24%|██▎       | 8/34 [00:00<00:00, 43.67it/s, v_num=1, train_loss_step=0.653, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  26%|██▋       | 9/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.653, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  26%|██▋       | 9/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.604, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  29%|██▉       | 10/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.604, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  29%|██▉       | 10/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.595, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  32%|███▏      | 11/34 [00:00<00:00, 44.03it/s, v_num=1, train_loss_step=0.595, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  32%|███▏      | 11/34 [00:00<00:00, 44.00it/s, v_num=1, train_loss_step=0.600, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  35%|███▌      | 12/34 [00:00<00:00, 43.92it/s, v_num=1, train_loss_step=0.600, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  35%|███▌      | 12/34 [00:00<00:00, 43.88it/s, v_num=1, train_loss_step=0.625, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  38%|███▊      | 13/34 [00:00<00:00, 43.94it/s, v_num=1, train_loss_step=0.625, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  38%|███▊      | 13/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.625, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  41%|████      | 14/34 [00:00<00:00, 44.02it/s, v_num=1, train_loss_step=0.625, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  41%|████      | 14/34 [00:00<00:00, 43.99it/s, v_num=1, train_loss_step=0.609, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  44%|████▍     | 15/34 [00:00<00:00, 43.71it/s, v_num=1, train_loss_step=0.609, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  44%|████▍     | 15/34 [00:00<00:00, 43.69it/s, v_num=1, train_loss_step=0.583, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  47%|████▋     | 16/34 [00:00<00:00, 43.81it/s, v_num=1, train_loss_step=0.583, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  47%|████▋     | 16/34 [00:00<00:00, 43.79it/s, v_num=1, train_loss_step=0.546, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  50%|█████     | 17/34 [00:00<00:00, 43.84it/s, v_num=1, train_loss_step=0.546, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  50%|█████     | 17/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.602, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  53%|█████▎    | 18/34 [00:00<00:00, 43.92it/s, v_num=1, train_loss_step=0.602, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  53%|█████▎    | 18/34 [00:00<00:00, 43.90it/s, v_num=1, train_loss_step=0.617, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  56%|█████▌    | 19/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.617, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  56%|█████▌    | 19/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.589, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  59%|█████▉    | 20/34 [00:00<00:00, 43.84it/s, v_num=1, train_loss_step=0.589, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  59%|█████▉    | 20/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.584, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  62%|██████▏   | 21/34 [00:00<00:00, 43.84it/s, v_num=1, train_loss_step=0.584, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  62%|██████▏   | 21/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.579, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  65%|██████▍   | 22/34 [00:00<00:00, 43.77it/s, v_num=1, train_loss_step=0.579, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  65%|██████▍   | 22/34 [00:00<00:00, 43.76it/s, v_num=1, train_loss_step=0.601, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  68%|██████▊   | 23/34 [00:00<00:00, 43.79it/s, v_num=1, train_loss_step=0.601, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  68%|██████▊   | 23/34 [00:00<00:00, 43.77it/s, v_num=1, train_loss_step=0.604, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  71%|███████   | 24/34 [00:00<00:00, 43.84it/s, v_num=1, train_loss_step=0.604, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  71%|███████   | 24/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.579, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  74%|███████▎  | 25/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.579, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  74%|███████▎  | 25/34 [00:00<00:00, 43.81it/s, v_num=1, train_loss_step=0.583, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  76%|███████▋  | 26/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.583, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  76%|███████▋  | 26/34 [00:00<00:00, 43.82it/s, v_num=1, train_loss_step=0.561, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  79%|███████▉  | 27/34 [00:00<00:00, 43.85it/s, v_num=1, train_loss_step=0.561, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  79%|███████▉  | 27/34 [00:00<00:00, 43.83it/s, v_num=1, train_loss_step=0.604, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  82%|████████▏ | 28/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.604, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  82%|████████▏ | 28/34 [00:00<00:00, 43.87it/s, v_num=1, train_loss_step=0.653, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  85%|████████▌ | 29/34 [00:00<00:00, 43.90it/s, v_num=1, train_loss_step=0.653, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  85%|████████▌ | 29/34 [00:00<00:00, 43.89it/s, v_num=1, train_loss_step=0.551, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  88%|████████▊ | 30/34 [00:00<00:00, 43.94it/s, v_num=1, train_loss_step=0.551, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  88%|████████▊ | 30/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.591, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  91%|█████████ | 31/34 [00:00<00:00, 43.99it/s, v_num=1, train_loss_step=0.591, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  91%|█████████ | 31/34 [00:00<00:00, 43.98it/s, v_num=1, train_loss_step=0.626, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  94%|█████████▍| 32/34 [00:00<00:00, 43.93it/s, v_num=1, train_loss_step=0.626, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  94%|█████████▍| 32/34 [00:00<00:00, 43.92it/s, v_num=1, train_loss_step=0.562, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4:  97%|█████████▋| 33/34 [00:00<00:00, 43.96it/s, v_num=1, train_loss_step=0.562, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4:  97%|█████████▋| 33/34 [00:00<00:00, 43.94it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+Epoch 4: 100%|██████████| 34/34 [00:00<00:00, 43.91it/s, v_num=1, train_loss_step=0.596, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4: 100%|██████████| 34/34 [00:00<00:00, 43.90it/s, v_num=1, train_loss_step=0.581, val_loss=0.609, val_acc_ar=0.622, val_f1_ar=0.557, val_acc_mb=0.638, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+
+Validation: |          | 0/? [00:00<?, ?it/s][A
+
+Validation:   0%|          | 0/9 [00:00<?, ?it/s][A
+
+Validation DataLoader 0:   0%|          | 0/9 [00:00<?, ?it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  11%|█         | 1/9 [00:00<00:00, 48.69it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  22%|██▏       | 2/9 [00:00<00:00, 47.41it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  33%|███▎      | 3/9 [00:00<00:00, 47.08it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  44%|████▍     | 4/9 [00:00<00:00, 46.29it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  56%|█████▌    | 5/9 [00:00<00:00, 45.74it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  67%|██████▋   | 6/9 [00:00<00:00, 45.77it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  78%|███████▊  | 7/9 [00:00<00:00, 46.00it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0:  89%|████████▉ | 8/9 [00:00<00:00, 46.08it/s][A/lustre06/project/6006845/atjhin/label_tweets/venv/lib/python3.11/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+
+
+Validation DataLoader 0: 100%|██████████| 9/9 [00:00<00:00, 46.46it/s][A
+
+                                                                      [A
+Epoch 4: 100%|██████████| 34/34 [00:00<00:00, 34.77it/s, v_num=1, train_loss_step=0.581, val_loss=0.588, val_acc_ar=0.636, val_f1_ar=0.564, val_acc_mb=0.643, val_f1_mb=0.569, train_loss_epoch=0.623, train_acc_ar=0.582, train_f1_ar=0.530, train_acc_mb=0.608, train_f1_mb=0.556]
+Epoch 4: 100%|██████████| 34/34 [00:00<00:00, 34.73it/s, v_num=1, train_loss_step=0.581, val_loss=0.588, val_acc_ar=0.636, val_f1_ar=0.564, val_acc_mb=0.643, val_f1_mb=0.569, train_loss_epoch=0.598, train_acc_ar=0.620, train_f1_ar=0.557, train_acc_mb=0.637, train_f1_mb=0.575]Monitored metric val_f1_ar did not improve in the last 1 records. Best score: 0.557. Signaling Trainer to stop.
+
+Epoch 4: 100%|██████████| 34/34 [00:00<00:00, 34.50it/s, v_num=1, train_loss_step=0.581, val_loss=0.588, val_acc_ar=0.636, val_f1_ar=0.564, val_acc_mb=0.643, val_f1_mb=0.569, train_loss_epoch=0.598, train_acc_ar=0.620, train_f1_ar=0.557, train_acc_mb=0.637, train_f1_mb=0.575]/localscratch/spool/slurmd/job47515183/slurm_script: line 13: 2085023 Killed                  python -m Refactored.main ${SLURM_ARRAY_TASK_ID}
+slurmstepd: error: Detected 1 oom_kill event in StepId=47515183.batch. Some of the step tasks have been OOM Killed.
+
+# 

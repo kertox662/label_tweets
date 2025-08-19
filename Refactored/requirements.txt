@@ -1,5 +1,11 @@
 ftfy
 openpyxl
+Pillow 
+psutil 
+scipy 
+six
+typing_extensions
+packaging
 sentence_transformers
 pytorch_lightning
 scikit-learn
