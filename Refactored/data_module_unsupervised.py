@@ -13,10 +13,11 @@ from sentence_transformers import InputExample, SentenceTransformer
 class TweetsDataModuleUnSupervised(pl.LightningDataModule):
     def __init__(self, data: pd.DataFrame, batch_size: int = None,
                 validation_size=0.1, oversample=False, random_state=2025,
-                 model_name: str = "sentence-transformers/all-mpnet-base-v2",
-                 num_workers=8):
+                 model_name: str =  "/home/atjhin/projects/def-jhoey/atjhin/model/all-mpnet-base-v2",
+                 num_workers=1):
         super().__init__()
         self.data = data.copy()
+        self.data = self.data
         self.batch_size = batch_size
         # Auto-select workers: use all logical CPU cores unless overridden
         default_workers = os.cpu_count() or 1
@@ -54,7 +55,7 @@ class TweetsDataModuleUnSupervised(pl.LightningDataModule):
     def _train_test_split(self):
         self.train, self.val = train_test_split(self.data, train_size=1-self._validation_size, random_state=self._random_state, shuffle=True)
         
-        print(f"Shape of training/validation/test: {self.train.shape[0]}/{self.val.shape[0]}")
+        print(f"Shape of training/validation: {self.train.shape[0]}/{self.val.shape[0]}")
     
     def _dataloader(self, dataset, shuffle, drop_last):
         examples = [InputExample(texts=[t, t]) for t in dataset["clean_text"]]

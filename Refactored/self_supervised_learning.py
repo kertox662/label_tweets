@@ -8,7 +8,7 @@ add it to `config.MODEL_OPTIONS`).
 """
 import os
 from typing import List
-import pyreadr
+# import pyreadr
 
 import pandas as pd
 import pytorch_lightning as pl
@@ -26,7 +26,7 @@ class SentenceTransformerSelfSupervised(pl.LightningModule):
 
     def __init__(
         self,
-        model_name: str = "sentence-transformers/all-mpnet-base-v2",
+        model_name: str = "/home/atjhin/projects/def-jhoey/atjhin/model/all-mpnet-base-v2",
         learning_rate: float = 5e-5,
     ) -> None:
         super().__init__()
@@ -37,13 +37,17 @@ class SentenceTransformerSelfSupervised(pl.LightningModule):
         # InfoNCE-style loss implemented inside ST
         self.loss_fn = losses.MultipleNegativesRankingLoss(self.model)
 
-    def forward(self, sentences: List[str]):  # type: ignore[override]
-        """Embed sentences using the underlying ST model."""
-        return self.model.encode(sentences, convert_to_tensor=True, device=self.device)
+    # def forward(self, sentences: List[str]):  # type: ignore[override]
+    #     """Embed sentences using the underlying ST model."""
+        # return self.model.encode(sentences, convert_to_tensor=True, device=self.device)
+    def forward(self, features):
+        """Forward pass through the SentenceTransformer backbone."""
+        return self.model(features)
 
     def training_step(self, batch, batch_idx):
         # The smart batching collate returns (sentence_features, labels)
         sentence_features, labels = batch
+        # embeddings = self(sentence_features)
         loss = self.loss_fn(sentence_features, labels)
         self.log("train_loss", loss, prog_bar=True)
         return loss
@@ -67,9 +71,9 @@ class SentenceTransformerSelfSupervised(pl.LightningModule):
 
 def pre_train_sentence_transformer(
     data_path: str,
-    model_name: str = "sentence-transformers/all-mpnet-base-v2",
+    model_name: str = "/home/atjhin/projects/def-jhoey/atjhin/model/all-mpnet-base-v2",
     max_epochs: int = 1,
-    batch_size: int = 64,
+    batch_size: int = 128,
     learning_rate: float = 5e-5,
     save_path: str = "pre_trained_sentence_st",
 ):
@@ -77,9 +81,12 @@ def pre_train_sentence_transformer(
 
     model = SentenceTransformerSelfSupervised(model_name=model_name, learning_rate=learning_rate)
     print("Model Created========================================")
-    data = pyreadr.read_r(data_path)['raw_tweets']
-    print("Data Read========================================")
-    datamodule = TweetsDataModuleUnSupervised(data=data, batch_size=batch_size, num_workers=os.cpu_count() - 1)
+    data = pd.read_csv(data_path)
+    print(f"Data Read========================================")
+    # total_gpus = torch.cuda.device_count()
+    # max_total_workers = os.cpu_count() or 1
+    # num_workers = max(1, max_total_workers // total_gpus)
+    datamodule = TweetsDataModuleUnSupervised(data=data, batch_size=batch_size, num_workers=1)
     print("Data Module Created ========================================")
     early_stop = EarlyStopping(monitor="val_loss", mode="min", patience=2)
     ckpt = ModelCheckpoint(
@@ -98,24 +105,29 @@ def pre_train_sentence_transformer(
     cuda_gpus = torch.cuda.device_count()
     mps_available = torch.backends.mps.is_available() and not torch.cuda.is_available()
     max_steps = 100000
-    val_check_interval = 5000
+    # val_check_interval = 5000
+    val_check_interval = float(1.0)
     trainer_args = dict(
-        max_steps=max_steps,
+        # max_steps=max_steps,
+        max_epochs=max_epochs,
         val_check_interval = val_check_interval,
         callbacks=[early_stop, ckpt],
         logger=TensorBoardLogger("tb_logs", name="st_ssl"),
+        log_every_n_steps=500
     )
 
     if cuda_gpus:
         trainer_args.update(dict(precision="16-mixed"))
         if cuda_gpus == 1:
+            print("Single GPU ============================")
             trainer_args.update(dict(accelerator="gpu", devices=1))
         else:
+            print("Multiple GPU ============================")
             trainer_args.update(
                 dict(
                     accelerator="gpu",
                     devices=cuda_gpus,
-                    strategy=DDPStrategy(find_unused_parameters=False),
+                    strategy=DDPStrategy(find_unused_parameters=True),
                 )
             )
     elif mps_available:
@@ -140,4 +152,4 @@ if __name__ == "__main__":
     # r_data = pyreadr.read_r('Refactored/data/raw_tweets.Rdata')
     # df = r_data['raw_tweets'].sample(1000)
     # # df.to_csv("sample_r_data.csv")
-    pre_train_sentence_transformer(data_path="Refactored/data/raw_tweets.Rdata", max_epochs=2)
+    pre_train_sentence_transformer(data_path="Refactored/data/raw_tweets.csv", max_epochs=10)
