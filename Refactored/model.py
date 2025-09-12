@@ -4,7 +4,7 @@ import pytorch_lightning as pl
 from sklearn.metrics import f1_score
 from sentence_transformers import SentenceTransformer
 from transformers import get_linear_schedule_with_warmup
-
+from typing import Optional
 
 class BertweetClassifier(pl.LightningModule):
     def __init__(
@@ -17,6 +17,7 @@ class BertweetClassifier(pl.LightningModule):
         use_soft_labels: bool = False,
         classifier_constructor=None,  # function (embedding_dim: int, num_labels: int) -> nn.Module
         class_weights: torch.Tensor = None,
+        model: Optional[pl.LightningModule] = None,
     ):
         super().__init__()
         self.save_hyperparameters()
@@ -26,8 +27,11 @@ class BertweetClassifier(pl.LightningModule):
         
         # 1) encoder
         # model_path = "~/projects/def-jhoey/atjhin/model/" + transformer_model_name
-        model_path = '/home/atjhin/projects/def-jhoey/atjhin/model/sentence-transformer-trained-tweet'
-        self.encoder = SentenceTransformer(model_path)
+        if model is None:
+            model_path = '/home/atjhin/projects/def-jhoey/atjhin/model/sentence-transformer-trained-tweet'
+            self.encoder = SentenceTransformer(model_path)
+        else:
+            self.encoder = model
 
         # 2) Set the classifier that will run on the embedding
         #    If it is provided, just use that, otherwise make

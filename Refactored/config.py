@@ -1,8 +1,8 @@
 # Configuration constants for the tweet classification project
 import torch.nn as nn
 # Training parameters
-EPOCHS = 25
-EARLY_STOPPING_EPOCH = 5
+EPOCHS = 150
+EARLY_STOPPING_EPOCH = 15
 EARLY_STOPPING_MIN_DELTA = 0.0001
 DEFAULT_TRIALS_PER_PARAMS = 1
 

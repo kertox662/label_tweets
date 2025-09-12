@@ -13,7 +13,7 @@ from sentence_transformers import InputExample, SentenceTransformer
 class TweetsDataModuleUnSupervised(pl.LightningDataModule):
     def __init__(self, data: pd.DataFrame, batch_size: int = None,
                 validation_size=0.1, oversample=False, random_state=2025,
-                 model_name: str =  "/home/atjhin/projects/def-jhoey/atjhin/model/all-mpnet-base-v2",
+                 model_name: str =  "sentence-transformers/all-mpnet-base-v2",
                  num_workers=1):
         super().__init__()
         self.data = data.copy()
