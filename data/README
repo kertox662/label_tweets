@@ -1,5 +1,0 @@
-Understanding what combined_labelled_tweets.csv is
-
-For any id that is 0-250(max) this is any tweet that we could not find a match for in R data. To receive the text behind this tweet join against the id column on the file failed.csv on the dropbox.
-
-We wont be able to pull R data for these tweets

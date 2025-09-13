@@ -1,6 +1,0 @@
-The following directory is any rough work relating to data preprocessing/combining/sampling
-
-combined_labelled_tweets.py takes files that are labelled as done and produces 
-one csv of all labelled tweets with the folling format tweet_id, year, AR, MB
-
-sample_generate.py is how we generated the samples
