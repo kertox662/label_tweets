@@ -1,0 +1,24 @@
+model_name: sentence-transformers/all-mpnet-base-v2
+# checkpoint_name: 
+learning_rate: 0.0001
+loss_scale: 7
+
+# Training params
+max_epochs: 10
+max_steps: 1000000
+accumulate_grad_batches: 1
+stopping_patience: 6
+checkpoint_epochs: 2
+
+# Metrics
+validation_interval: 0.25
+logging_interval_steps: 200
+logs_dir: tb_logs
+logs_name: st_ssl
+
+# Data params
+data_path: data/tweets/all_tweets.csv
+batch_size: 32
+
+# Saving params
+save_path: pre_trained_sentence_st

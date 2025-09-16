@@ -1,0 +1,23 @@
+model_name: sentence-transformers/all-mpnet-base-v2
+# checkpoint_name:
+soft_labels: true
+class_weight: true
+freeze_encoder: false
+hidden_dim: 256
+dropout_p: 0.45
+
+# Training params
+learning_rate: 0.0003
+max_epochs: 100
+accumulate_grad_batches: 8
+stopping_patience: 10
+warmup_ratio: 0.1
+
+# Metrics
+logs_dir: tb_logs
+logs_name: classifier
+
+# Data params
+train_data: data/tweets/train_master.csv
+test_data: data/tweets/test_master.csv
+batch_size: 32
