@@ -1,0 +1,9 @@
+torch==2.7.1
+pytorch-lightning==2.5.5
+transformers==4.56.2
+torchinfo==1.8.0
+torchmetrics==1.8.2
+pandas==2.3.2
+scikit-learn==1.7.2
+emoji==2.14.1
+tensorboardX==2.6.4
