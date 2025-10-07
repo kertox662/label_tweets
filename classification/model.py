@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import pytorch_lightning as pl
 from sklearn.metrics import f1_score
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, models
 from transformers import get_linear_schedule_with_warmup
 
 from self_supervised.model import TransformerBackbone
@@ -32,7 +32,15 @@ class BertweetClassifier(pl.LightningModule):
         if model_checkpoint:
             self.encoder = TransformerBackbone.load_from_checkpoint(model_checkpoint).model
         else:
-            self.encoder = SentenceTransformer(model_name)
+            st_encoder = models.Transformer(model_name)
+            st_pooling = models.Pooling(
+                st_encoder.get_word_embedding_dimension(),
+                pooling_mode_mean_tokens=False,
+                pooling_mode_cls_token=True,
+                pooling_mode_max_tokens=False,
+            )
+            # self.encoder = SentenceTransformer(model_name)
+            self.encoder = SentenceTransformer(modules=[st_encoder, st_pooling])
 
         # 2) Set the classifier that will run on the embedding
         #    If it is provided, just use that, otherwise make
@@ -41,8 +49,9 @@ class BertweetClassifier(pl.LightningModule):
 
         self.classifier = nn.Sequential(
             nn.Linear(embedding_dim, hidden_dim),
-            nn.Tanh(),
-            nn.BatchNorm1d(hidden_dim),
+            # nn.Tanh(),
+            nn.ReLU(),
+            # nn.BatchNorm1d(hidden_dim),
             nn.Dropout(dropout_p),
             nn.Linear(hidden_dim, NUM_LABELS)
         )

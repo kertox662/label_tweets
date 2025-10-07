@@ -30,10 +30,21 @@ class SupervisedTrainer:
             mode="min",
             patience=config.stopping_patience,
         )
+        # self.early_stopping = EarlyStopping(
+        #     monitor="val_f1_ar",
+        #     mode="max",
+        #     patience=config.stopping_patience,
+        # )
+
+        self.early_stopping2 = EarlyStopping(
+            monitor="val_f1_mb",
+            mode="max",
+            patience=config.stopping_patience,
+        )
 
         self.trainer_args = dict(
             max_epochs=config.max_epochs,
-            callbacks=[self.early_stopping],
+            callbacks=[self.early_stopping, self.early_stopping2],
             logger=TensorBoardLogger(config.logs_dir, name=config.logs_name),
             accumulate_grad_batches=config.accumulate_grad_batches,
         )
@@ -42,7 +53,7 @@ class SupervisedTrainer:
         self.setup_compute_devices()
         trainer = pl.Trainer(**self.trainer_args)
         train_data = pd.read_csv(self.config.train_data)
-        train_datamodule = TweetsDataModule(data=train_data, batch_size=self.config.batch_size, random_state=2026)
+        train_datamodule = TweetsDataModule(data=train_data, batch_size=self.config.batch_size, random_state=2026, target_col="MB")
         print("Data Read ========================================")
         
         print("Trainer Fitting ========================================")
@@ -51,6 +62,8 @@ class SupervisedTrainer:
         print("Trainer Testing ========================================")
         print("Trainer Test Set ================")
         trainer.test(self.model, train_datamodule)
+
+        
         train_datamodule.test = train_datamodule.train
         print("Trainer Train Set ================")
         trainer.test(self.model, train_datamodule)
