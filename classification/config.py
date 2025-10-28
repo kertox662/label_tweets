@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 @dataclass
 class SupervisedTrainingConfig:
@@ -11,6 +11,8 @@ class SupervisedTrainingConfig:
     freeze_encoder: bool = True
     hidden_dim: int = 128
     dropout_p: float = 0.3
+    trials: int = 20
+    cross_val_folds: Optional[int] = None
 
     # Training params
     learning_rate: float = 1e-4
@@ -27,10 +29,12 @@ class SupervisedTrainingConfig:
     # Data params
     train_data: str = "data/tweets/train_master.csv"
     test_data: str = "data/tweets/test_master.csv"
-    kfold_data: str = "data/tweets/crossval_master.csv"
+    train_with_test_data: str = "data/tweets/train_with_test.csv"
     all_data: str = "data/tweets/all_tweets.csv"
     batch_size: int = 32
 
     global_seed: int = 2025
-    test_data_seed: int = 42
-    val_data_seed: int = 42
+    test_data_seed: int = 2025
+    val_data_seed: int = 2025
+    val_size: float = 0.2
+    test_size: float = 0.2

@@ -10,7 +10,7 @@ from transformers import AutoTokenizer
 import pandas as pd
 from sklearn.model_selection import train_test_split, StratifiedKFold
 
-MODEL_NAME = "vinai/bertweet-large"
+MODEL_NAME = "vinai/bertweet-base"
 
 @dataclass
 class TweetExample:
@@ -25,8 +25,8 @@ class TweetDataset(Dataset):
         self.labels = [l - 1 for l in self.labels] # 0-indexed
         self.tokenizer = tokenizer
         self.max_length = max_length
-        self.label_col = label_col
-        self.use_sentence_transformer = use_sentence_transformer
+        # self.label_col = label_col
+        # self.use_sentence_transformer = use_sentence_transformer
 
 
     def __len__(self):
@@ -38,10 +38,10 @@ class TweetDataset(Dataset):
         enc = self.tokenizer(
             text,
             truncation=True,
-            padding=True,
+            padding=False,
             max_length=self.max_length,
             return_tensors=None,
-            add_special_tokens=True,
+            # add_special_tokens=True,
         )
         item = {k: torch.tensor(v, dtype=torch.long) for k, v in enc.items()}
         item["labels"] = torch.tensor(self.labels[idx], dtype=torch.long)
@@ -75,6 +75,9 @@ class TweetsTVTDataModule(pl.LightningDataModule):
         max_length: int = 128,
         num_workers: int = 2,
         test_only: bool = False,
+        no_test: bool = False,
+        remove_disagreements: bool = False,
+        add_disgreed_to_test: bool = False,
     ):
         super().__init__()
         self.data_path = data_path
@@ -90,17 +93,23 @@ class TweetsTVTDataModule(pl.LightningDataModule):
         self.max_length = max_length
         self.num_workers = num_workers
         self.test_only = test_only
+        self.no_test = no_test
+        self.remove_disagreements = remove_disagreements
+        self.add_disgreed_to_test = add_disgreed_to_test
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False, normalization=True)
         # self.tokenizer.add_special_tokens({'additional_special_tokens': ['[T_LINK]', '[T_USER]']})
         self.collator = DataCollator(self.tokenizer)
     
-    def read_csv(self, remove_disagreements: bool = False):
+    def read_csv(self):
         data_df = pd.read_csv(self.data_path)
         data_df['AR'].replace({4: 2}, inplace=True)
         data_df['MB'].replace({4: 2}, inplace=True)
 
-        if remove_disagreements:
+        if self.remove_disagreements:
+            self.disagreed_df = data_df[data_df["AR"] != data_df["MB"]]
             data_df = data_df[data_df["AR"] == data_df["MB"]]
+        else:
+            self.disagreed_df = None
 
         return data_df
         
@@ -111,7 +120,19 @@ class TweetsTVTDataModule(pl.LightningDataModule):
         assert self.text_col in df.columns, f"Missing text column {self.text_col}"
         assert self.label_col in df.columns, f"Missing label column {self.label_col}"
         
-        if self.test_only:
+        if self.no_test:
+            train_df, val_df = train_test_split(
+                df[[self.text_col, self.label_col]],
+                test_size=self.val_size,
+                random_state=self.val_seed,
+                stratify=df[self.label_col] if self.label_col in df and df[self.label_col].nunique() > 1 else None,
+            )
+
+            self.test_ds = None
+            self.train_ds = TweetDataset(train_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
+            self.val_ds = TweetDataset(val_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
+            self.train_label_counts = self.train_label_counts = train_df[self.label_col].value_counts().reindex(range(1, self.num_labels+1), fill_value=0).sort_index().values
+        elif self.test_only:
             # Load all data as test set
             self.test_ds = TweetDataset(df[[self.text_col, self.label_col]], self.tokenizer, self.text_col, self.label_col, self.max_length)
             self.train_ds = None
@@ -122,9 +143,10 @@ class TweetsTVTDataModule(pl.LightningDataModule):
             # Stratified split if possible
             modeldev_df, test_df = train_test_split(
                 df[[self.text_col, self.label_col]],
-                test_size=self.val_size,
+                test_size=self.test_size,
                 random_state=self.test_seed,
-                stratify=df[self.label_col] if self.label_col in df and df[self.label_col].nunique() > 1 else None,
+                stratify=df["AR"] if "AR" in df and df["AR"].nunique() > 1 else None,
+                # stratify=df[self.label_col] if self.label_col in df and df[self.label_col].nunique() > 1 else None,
             )
             train_df, val_df = train_test_split(
                 modeldev_df[[self.text_col, self.label_col]],
@@ -132,6 +154,10 @@ class TweetsTVTDataModule(pl.LightningDataModule):
                 random_state=self.val_seed,
                 stratify=modeldev_df[self.label_col] if self.label_col in modeldev_df and modeldev_df[self.label_col].nunique() > 1 else None,
             )
+
+            if self.add_disgreed_to_test and self.disagreed_df is not None:
+                test_df = pd.concat([ test_df, self.disagreed_df[[self.text_col, self.label_col]] ])
+
             self.train_ds = TweetDataset(train_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
             self.val_ds = TweetDataset(val_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
             self.test_ds = TweetDataset(test_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
@@ -151,9 +177,13 @@ class TweetsTVTDataModule(pl.LightningDataModule):
         return DataLoader(self.val_ds, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers, collate_fn=self.collator, persistent_workers=True)    
     
     def test_dataloader(self):
+        if self.no_test:
+            return None
         return DataLoader(self.test_ds, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers, collate_fn=self.collator, persistent_workers=True)
 
     def predict_dataloader(self):
+        if self.no_test:
+            return None
         return DataLoader(self.test_ds, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers, collate_fn=self.collator, persistent_workers=True)
 
 
@@ -201,11 +231,12 @@ def create_k_fold_data_modules(
     label_col: str,
     label_names: List[str],
     num_labels: int,
-    k: int = 5,
+    model_name: str = MODEL_NAME,
+    num_folds: int = 5,
     batch_size: int = 32,
     max_length: int = 128,
     num_workers: int = 2,
-    test_size: float = 0.15,
+    val_size: float = 0.15,
     random_state: int = 42,
     remove_disagreements: bool = False
 ):
@@ -242,11 +273,11 @@ def create_k_fold_data_modules(
     y = data_df[label_col]
     
     # Initialize tokenizer and collator
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=False, normalization=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False, normalization=True)
     collator = DataCollator(tokenizer)
     
     # Create stratified k-fold splitter
-    skf = StratifiedKFold(n_splits=k, shuffle=True, random_state=random_state)
+    skf = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=random_state)
     
     # Generate folds
     for fold_idx, (train_val_idx, test_idx) in enumerate(skf.split(X, y)):
@@ -257,7 +288,7 @@ def create_k_fold_data_modules(
         # Second split: train/val split on the remaining data
         train_df, val_df = train_test_split(
             fold_train_val_df[[text_col, label_col]],
-            test_size=test_size / (1 - test_size),  # Adjust test_size for remaining data
+            test_size=val_size / (1 - val_size),  # Adjust test_size for remaining data
             random_state=random_state,
             stratify=fold_train_val_df[label_col] if fold_train_val_df[label_col].nunique() > 1 else None,
         )

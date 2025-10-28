@@ -21,11 +21,134 @@ import numpy as np
 
 MODEL_NAME = "vinai/bertweet-base"
 
+@dataclass
+class TweetExample:
+    text: str
+    label: int
+    
+
+class TweetDataset(Dataset):
+    def __init__(self, df: pd.DataFrame, tokenizer: AutoTokenizer, text_col: str, label_col: str, max_length: int = 128):
+        self.texts = df[text_col].astype(str).tolist()
+        self.labels = df[label_col].astype(int).tolist()
+        self.labels = [l - 1 for l in self.labels] # 0-indexed
+        self.tokenizer = tokenizer
+        self.max_length = max_length
+
+
+    def __len__(self):
+        return len(self.texts)
+
+
+    def __getitem__(self, idx):
+        text = self.texts[idx]
+        enc = self.tokenizer(
+            text,
+            truncation=True,
+            padding=False,
+            max_length=self.max_length,
+            return_tensors=None,
+        )
+        item = {k: torch.tensor(v, dtype=torch.long) for k, v in enc.items()}
+        item["labels"] = torch.tensor(self.labels[idx], dtype=torch.long)
+        return item
+    
+class DataCollator:
+    def __init__(self, tokenizer: AutoTokenizer):
+        self.tokenizer = tokenizer
+        
+    def __call__(self, batch: List[dict]):
+        # dynamic padding
+        return self.tokenizer.pad(batch, return_tensors="pt")
+    
+class TweetsTVTDataModule(pl.LightningDataModule):
+    """
+    Creates train/val/test data loaders
+    """
+    
+    def __init__(self,
+        data_path: str,
+        text_col: str,
+        label_col: str,
+        label_names: List[str],
+        num_labels: int,
+        val_size: float = 0.15,
+        test_size: float = 0.15,
+        val_seed: int = 42,
+        test_seed: int = 42,
+        batch_size: int = 32,
+        max_length: int = 128,
+        num_workers: int = 2,
+    ):
+        super().__init__()
+        self.data_path = data_path
+        self.text_col = text_col
+        self.label_col = label_col
+        self.label_names = label_names
+        self.num_labels = num_labels
+        self.val_size = val_size
+        self.test_size = test_size
+        self.val_seed = val_seed
+        self.test_seed = test_seed
+        self.batch_size = batch_size
+        self.max_length = max_length
+        self.num_workers = num_workers
+        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=False, normalization=True)
+        self.collator = DataCollator(self.tokenizer)
+    
+    def read_csv(self, remove_disagreements: bool = False):
+        data_df = pd.read_csv(self.data_path)
+        data_df['AR'].replace({4: 2}, inplace=True)
+        data_df['MB'].replace({4: 2}, inplace=True)
+
+        if remove_disagreements:
+            data_df = data_df[data_df["AR"] == data_df["MB"]]
+
+        return data_df
+        
+    def setup(self, stage: Optional[str] = None):
+        
+        df = self.read_csv(False)
+
+        assert self.text_col in df.columns, f"Missing text column {self.text_col}"
+        assert self.label_col in df.columns, f"Missing label column {self.label_col}"
+
+        # Stratified split if possible
+        modeldev_df, test_df = train_test_split(
+            df[[self.text_col, self.label_col]],
+            test_size=self.test_size,
+            random_state=self.test_seed,
+            # stratify=df["AR"] if self.label_col in df and df["AR"].nunique() > 1 else None,
+            stratify=df[self.label_col] if self.label_col in df and df[self.label_col].nunique() > 1 else None,
+        )
+        train_df, val_df = train_test_split(
+            modeldev_df[[self.text_col, self.label_col]],
+            test_size=self.val_size / (1 - self.test_size),
+            random_state=self.val_seed,
+            stratify=modeldev_df[self.label_col] if self.label_col in modeldev_df and modeldev_df[self.label_col].nunique() > 1 else None,
+        )
+        self.train_ds = TweetDataset(train_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
+        self.val_ds = TweetDataset(val_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
+        self.test_ds = TweetDataset(test_df, self.tokenizer, self.text_col, self.label_col, self.max_length)
+
+        # Save label counts for class weights
+        self.train_label_counts = train_df[self.label_col].value_counts().reindex(range(1, self.num_labels+1), fill_value=0).sort_index().values
+
+
+    def train_dataloader(self):
+        return DataLoader(self.train_ds, batch_size=self.batch_size, shuffle=True, num_workers=self.num_workers, collate_fn=self.collator)
+
+    def val_dataloader(self):
+        return DataLoader(self.val_ds, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers, collate_fn=self.collator, persistent_workers=True)    
+    
+    def test_dataloader(self):
+        return DataLoader(self.test_ds, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers, collate_fn=self.collator, persistent_workers=True) 
+    
+
 class BertweetModule(pl.LightningModule):
     
     def __init__(self,
-        model_name: str = MODEL_NAME,
-        num_labels: int = 3,
+        num_labels: int,
         lr: float = 2e-5,
         weight_decay: float = 0.01,
         warmup_ratio: float = 0.1,
@@ -33,15 +156,11 @@ class BertweetModule(pl.LightningModule):
         total_steps: Optional[int] = None,
         class_weight: bool = False,
         train_label_counts: Optional[np.ndarray] = None,
-        tokenizer: Optional[AutoTokenizer] = None,
     ):
         super().__init__()
         self.save_hyperparameters(ignore=["train_label_counts"]) # avoid logging large arrays
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels)
+        self.model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=num_labels)
         self.model.dropout = torch.nn.Dropout(p=dropout)
-
-        if tokenizer is not None:
-            self.model.resize_token_embeddings(len(tokenizer))
 
         # Metrics
         self.acc = MulticlassAccuracy(num_classes=num_labels)
@@ -57,7 +176,6 @@ class BertweetModule(pl.LightningModule):
             weights = 1.0 / counts
             weights = weights / weights.sum() * len(counts)
             self.register_buffer("class_weights", weights)
-            print("Using class weights:", self.class_weights)
         else:
             self.class_weights = None
             
@@ -85,7 +203,6 @@ class BertweetModule(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         outputs = self(**batch)
         logits = outputs.logits
-        conf = torch.max(torch.softmax(logits, dim=-1), dim=-1).values
         preds = torch.argmax(logits, dim=-1)
         y = batch["labels"]
         acc = self.acc(preds, y)
@@ -96,7 +213,7 @@ class BertweetModule(pl.LightningModule):
         if self.class_weights is not None:
             loss_fn = torch.nn.CrossEntropyLoss(weight=self.class_weights)
             loss = loss_fn(logits, y)
-        self.log_dict({"val_loss": loss, "val_acc": acc, "val_macro_f1": f1_macro, "val_weighted_f1": f1_weighted, "conf_mean": torch.mean(conf).item(), "conf_std": torch.std(conf).item()}, prog_bar=True)
+        self.log_dict({"val_loss": loss, "val_acc": acc, "val_macro_f1": f1_macro, "val_weighted_f1": f1_weighted}, prog_bar=True)
         return {"cm": cm}
 
     def on_validation_epoch_end(self):

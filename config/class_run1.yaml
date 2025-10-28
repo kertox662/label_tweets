@@ -1,25 +1,13 @@
-# model_name: sentence-transformers/all-mpnet-base-v2
-# model_name: vinai/bertweet-base
 model_name: vinai/bertweet-base
-# model_name: bert-base-cased
-# checkpoint_name:
-soft_labels: false
 class_weight: false
-freeze_encoder: false
-hidden_dim: 256
-dropout_p: 0.1
-trials: 3
-# cross_val_folds: 3
+trials: 40
 
 # Training params
 learning_rate: 0.00003
-# learning_rate: 0.00008
-# learning_rate: 0.00005
-max_epochs: 3
+max_epochs: 30
 accumulate_grad_batches: 1
-stopping_patience: 3
+stopping_patience: 4
 warmup_ratio: 0.1
-# warmup_ratio: 0.01
 
 # Metrics
 logs_dir: tb_logs
