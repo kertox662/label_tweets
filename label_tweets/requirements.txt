@@ -1,0 +1,28 @@
+# PyTorch - Will be pre-installed on Vast.ai PyTorch template
+# Uncomment if you need to upgrade for RTX 5090 support:
+# torch>=2.5.0
+# torchvision
+# torchaudio
+
+# Core ML libraries
+pytorch-lightning==2.5.5
+transformers==4.56.2
+torchmetrics==1.8.2
+
+# Data processing
+pandas==2.3.2
+numpy>=1.24.0
+scikit-learn==1.7.2
+
+# Utilities
+tqdm>=4.65.0
+emoji==2.14.1
+
+# Logging and visualization
+tensorboardX==2.6.4
+matplotlib
+
+# Model and data handling
+torchinfo==1.8.0
+safetensors
+pyreadr
