@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.utils.class_weight import compute_class_weight
-from imblearn.over_sampling import RandomOverSampler
+# from imblearn.over_sampling import RandomOverSampler
 import pytorch_lightning as pl
 
 from data.preprocessing import preprocess_text
@@ -61,12 +61,12 @@ class TweetsDataModule(pl.LightningDataModule):
     def _train_test_split(self):
         train, self.test = train_test_split(self.data, train_size=1-self._test_size, random_state=self._random_state, shuffle=True)
         self.train, self.val = train_test_split(train, train_size=1-self._validation_size, random_state=self._random_state, shuffle=True)
-        if self._oversample:
-            ros = RandomOverSampler(random_state=self._random_state)
-            # Extract features and label
-            X_res, y_res = ros.fit_resample(self.train, self.train["y"])
-            self.train = X_res.copy()
-            self.train["y"] = y_res
+        # if self._oversample:
+        #     ros = RandomOverSampler(random_state=self._random_state)
+        #     # Extract features and label
+        #     X_res, y_res = ros.fit_resample(self.train, self.train["y"])
+        #     self.train = X_res.copy()
+        #     self.train["y"] = y_res
         
         print(f"Shape of training/validation/test: {self.train.shape[0]}/{self.val.shape[0]}/{self.test.shape[0]}")
         print(f"Label distribution for training data: {self.train.y.value_counts()}")
