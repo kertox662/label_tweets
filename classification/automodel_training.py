@@ -45,7 +45,6 @@ class AutomodelSupervisedTrainer:
             "max_length": MAX_LENGTH,
             "num_workers": 12,
             "val_size": self.config.val_size,
-            "remove_disagreements": False,
         }
 
         self.trainer_args = dict(
@@ -117,10 +116,23 @@ class AutomodelSupervisedTrainer:
             self.config.trials,
             self.training_trial,
             self.training_trial_datamodule,
-            "Training Trial {}"
+            label = "Training Trial {}",
+            remove_disagreements = True,
+            use_full_test_data=use_full_test_data,
         )
-        training_results_path = f"{self.config.logs_dir}/{self.config.logs_name}_{self.timestamp}_training.csv"
+        training_results_path = f"{self.config.logs_dir}/{self.config.logs_name}_{self.timestamp}_training_agreed.csv"
         training_df.to_csv(training_results_path)
+
+        training_diagree_df = self.run_k_times(
+            self.config.trials,
+            self.training_trial,
+            self.training_trial_datamodule,
+            label = "Training Disagree Trial {}",
+            remove_disagreements = False,
+            use_full_test_data=use_full_test_data,
+        )
+        training_results_path = f"{self.config.logs_dir}/{self.config.logs_name}_{self.timestamp}_training_disagreed.csv"
+        training_diagree_df.to_csv(training_results_path)
 
         pl.seed_everything(self.config.global_seed)
 
@@ -216,7 +228,8 @@ class AutomodelSupervisedTrainer:
         return create_k_fold_data_modules(
             data_path=self.config.train_with_test_data,
             num_folds=self.config.cross_val_folds,
-            **self.dm_config
+            **self.dm_config,
+            remove_disagreements=True,
         )
 
     def cross_validation(self, iteration: int, k_fold_datamodule_generator):
@@ -261,7 +274,7 @@ class AutomodelSupervisedTrainer:
         
         return pd.DataFrame(metrics_acc)
 
-    def training_trial_datamodule(self, iteration, use_full_test_data: bool = False):
+    def training_trial_datamodule(self, iteration, use_full_test_data: bool = False, remove_disagreements: bool = False):
         if use_full_test_data:
             dm = TweetsTVTDataModule(
                 data_path=self.config.train_data,
@@ -269,6 +282,7 @@ class AutomodelSupervisedTrainer:
                 val_seed = self.config.val_data_seed + iteration,
                 test_seed = self.config.test_data_seed + iteration,
                 no_test=True,
+                remove_disagreements=remove_disagreements
             )
             dm.setup()
 
@@ -284,18 +298,20 @@ class AutomodelSupervisedTrainer:
                 **self.dm_config,
                 val_seed = self.config.val_data_seed + iteration,
                 test_seed = self.config.test_data_seed + iteration,
+                remove_disagreements=remove_disagreements
             )
             dm.setup()
 
-            self.dm_config["label"] = self.opposite_label()
+            self.dm_config["label_col"] = self.opposite_label()
             opp_dm = TweetsTVTDataModule(
                 data_path=self.config.train_data,
                 **self.dm_config,
                 val_seed = self.config.val_data_seed + iteration,
                 test_seed = self.config.test_data_seed + iteration,
+                remove_disagreements=remove_disagreements
             )
             opp_dm.setup()
-            self.dm_config["label"] = LABEL_COL
+            self.dm_config["label_col"] = LABEL_COL
 
             return {
                 "train": dm,
@@ -304,7 +320,12 @@ class AutomodelSupervisedTrainer:
             }
 
 
-    def training_trial(self, iteration: int, datamodule: TweetsTVTDataModule, use_full_test_data: bool = False):
+    def training_trial(self,
+                       iteration: int,
+                       datamodule: TweetsTVTDataModule,
+                       use_full_test_data: bool = False,
+                       **kwargs
+                    ):
         metrics_acc = {
             **self.create_metrics_dict(),
             "label": []
@@ -341,6 +362,10 @@ class AutomodelSupervisedTrainer:
         
         if os.path.exists(self.ckpt_cb.best_model_path):
             os.remove(self.ckpt_cb.best_model_path)
+
+        del self.model
+        self.model = None
+        return pd.DataFrame(metrics_acc)
 
     def setup_compute_devices(self):
         cuda_gpus = torch.cuda.device_count()
