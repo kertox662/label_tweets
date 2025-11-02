@@ -78,6 +78,7 @@ class TweetsTVTDataModule(pl.LightningDataModule):
         no_test: bool = False,
         remove_disagreements: bool = False,
         add_disgreed_to_test: bool = False,
+        **kwargs
     ):
         super().__init__()
         self.data_path = data_path
