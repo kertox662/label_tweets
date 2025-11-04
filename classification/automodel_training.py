@@ -271,6 +271,8 @@ class AutomodelSupervisedTrainer:
             self.add_to_test_metric_accumulator(metrics_acc, metrics)
             if os.path.exists(self.ckpt_cb.best_model_path):
                 os.remove(self.ckpt_cb.best_model_path)
+            del model_copy
+            torch.cuda.empty_cache()
         
         return pd.DataFrame(metrics_acc)
 
@@ -364,6 +366,7 @@ class AutomodelSupervisedTrainer:
             os.remove(self.ckpt_cb.best_model_path)
 
         del self.model
+        torch.cuda.empty_cache()
         self.model = None
         return pd.DataFrame(metrics_acc)
 

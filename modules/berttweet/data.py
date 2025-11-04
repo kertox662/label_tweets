@@ -266,9 +266,6 @@ def create_k_fold_data_modules(
     data_df['AR'].replace({4: 2}, inplace=True)
     data_df['MB'].replace({4: 2}, inplace=True)
     
-    if remove_disagreements:
-        data_df = data_df[data_df["AR"] == data_df["MB"]]
-    
     # Prepare features and labels for k-fold on all data
     X = data_df[[text_col, label_col]]
     y = data_df[label_col]
@@ -285,11 +282,14 @@ def create_k_fold_data_modules(
         # First split: separate test set for this fold
         fold_train_val_df = data_df.iloc[train_val_idx].reset_index(drop=True)
         test_df = data_df.iloc[test_idx].reset_index(drop=True)
+
+        if remove_disagreements:
+            fold_train_val_df = fold_train_val_df[fold_train_val_df["AR"] == fold_train_val_df["MB"]]
         
         # Second split: train/val split on the remaining data
         train_df, val_df = train_test_split(
             fold_train_val_df[[text_col, label_col]],
-            test_size=val_size / (1 - val_size),  # Adjust test_size for remaining data
+            test_size=val_size,
             random_state=random_state,
             stratify=fold_train_val_df[label_col] if fold_train_val_df[label_col].nunique() > 1 else None,
         )
