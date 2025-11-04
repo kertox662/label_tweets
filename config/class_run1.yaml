@@ -1,0 +1,22 @@
+model_name: vinai/bertweet-base
+class_weight: false
+trials: 40
+
+# Training params
+learning_rate: 0.00003
+max_epochs: 30
+accumulate_grad_batches: 1
+stopping_patience: 4
+warmup_ratio: 0.1
+
+# Metrics
+logs_dir: tb_logs
+logs_name: classifier
+
+# Data params
+train_data: data/tweets/train_master.csv
+test_data: data/tweets/test_master.csv
+all_data: data/tweets/all_tweets.csv
+batch_size: 64
+
+global_seed: 2025
