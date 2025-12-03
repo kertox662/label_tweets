@@ -1,4 +1,3 @@
-# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -8,14 +7,12 @@ venv/
 env/
 ENV/
 
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Training outputs
 pseudo_training_runs/
 outputs/
 logs/
@@ -23,10 +20,7 @@ tb_logs/
 *.ckpt
 *.pth
 
-# Data (optional - uncomment if you don't want to commit data)
-# tweets_data/
 
-# System
 .DS_Store
 Thumbs.db
 

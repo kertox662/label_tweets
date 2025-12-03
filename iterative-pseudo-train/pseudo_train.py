@@ -1,6 +1,4 @@
-"""
-Iterative pseudo-labeling training pipeline with adaptive confidence thresholds.
-"""
+# Iterative pseudo-labeling training pipeline with adaptive confidence thresholds.
 
 import argparse
 import os
@@ -86,25 +84,24 @@ def predict_on_unlabeled(model_path, data_csv, text_col, id_col, batch_size, dev
 
 
 def save_iteration_markdown(run_dir, iteration, metrics, selected_df):
-    """Save detailed markdown report for this iteration"""
     md_file = os.path.join(run_dir, f'iteration_{iteration}_report.md')
     
     with open(md_file, 'w') as f:
         f.write(f"# Pseudo-Training Iteration {iteration} Report\n\n")
-        f.write(f"**Date**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         
         # Dataset sizes
-        f.write("## Dataset Sizes\n\n")
-        f.write(f"- **Labeled Data**: {metrics['labeled_size']:,} samples\n")
-        f.write(f"- **Unlabeled Pool**: {metrics['unlabeled_size']:,} samples\n")
-        f.write(f"- **Pseudo-labels Added**: {metrics['added']:,} samples\n")
-        f.write(f"- **Confidence Threshold**: {metrics['confidence_threshold']:.3f}\n\n")
+        f.write("Dataset Sizes\n\n")
+        f.write(f"Labeled Data: {metrics['labeled_size']:,} samples\n")
+        f.write(f"Unlabeled Pool: {metrics['unlabeled_size']:,} samples\n")
+        f.write(f"Pseudo-labels Added: {metrics['added']:,} samples\n")
+        f.write(f"Confidence Threshold: {metrics['confidence_threshold']:.3f}\n\n")
         
         # Test performance
-        f.write("## Test Performance\n\n")
-        f.write(f"- **Accuracy**: {metrics['test_accuracy']:.4f}\n")
-        f.write(f"- **Macro F1**: {metrics['test_f1_macro']:.4f}\n")
-        f.write(f"- **Weighted F1**: {metrics['test_f1_weighted']:.4f}\n\n")
+        f.write("Test Performance\n\n")
+        f.write(f"Accuracy: {metrics['test_accuracy']:.4f}\n")
+        f.write(f"Macro F1: {metrics['test_f1_macro']:.4f}\n")
+        f.write(f"Weighted F1: {metrics['test_f1_weighted']:.4f}\n\n")
         
         # Per-class performance
         f.write("## Per-Class Performance\n\n")
@@ -122,51 +119,35 @@ def save_iteration_markdown(run_dir, iteration, metrics, selected_df):
         
         # Pseudo-label analysis
         if selected_df is not None and len(selected_df) > 0:
-            f.write("## Pseudo-Label Analysis\n\n")
-            f.write(f"- **Confidence Range**: [{selected_df['confidence'].min():.4f}, {selected_df['confidence'].max():.4f}]\n")
-            f.write(f"- **Mean Confidence**: {selected_df['confidence'].mean():.4f}\n")
-            f.write(f"- **Label Distribution**: {dict(selected_df['pred_label'].value_counts().sort_index())}\n\n")
+            f.write("Pseudo-Label Analysis\n\n")
+            f.write(f"Confidence Range: [{selected_df['confidence'].min():.4f}, {selected_df['confidence'].max():.4f}]\n")
+            f.write(f"Mean Confidence: {selected_df['confidence'].mean():.4f}\n")
+            f.write(f"Label Distribution: {dict(selected_df['pred_label'].value_counts().sort_index())}\n\n")
             
             # Class percentages
             label_counts = selected_df['pred_label'].value_counts().sort_index()
             total = len(selected_df)
             percentages = {k: v/total*100 for k, v in label_counts.items()}
-            f.write("### Class Distribution in Pseudo-labels\n\n")
+            f.write("Class Distribution in Pseudo-labels\n\n")
             f.write("| Class | Count | Percentage |\n")
             for class_id in sorted(percentages.keys()):
                 f.write(f"| Class {class_id} | {label_counts[class_id]:,} | {percentages[class_id]:.1f}% |\n")
             f.write("\n")
         
         # Model info
-        f.write("## Model Information\n\n")
-        f.write(f"- **Checkpoint**: `{metrics['model_path']}`\n")
-        f.write(f"- **Training Data**: `iteration_{iteration}/train_data.csv`\n")
-        f.write(f"- **Unlabeled Data**: `iteration_{iteration}/unlabelled_data.csv`\n\n")
+        f.write("Model Information\n\n")
+        f.write(f"Checkpoint: {metrics['model_path']}\n")
+        f.write(f"Training Data: iteration_{iteration}/train_data.csv\n")
+        f.write(f"Unlabeled Data: iteration_{iteration}/unlabelled_data.csv\n\n")
         
-        # Summary
-        f.write("## Summary\n\n")
-        if metrics['test_f1_macro'] > 0.6:
-            f.write("**Good Performance**: Macro F1 > 0.6\n")
-        else:
-            f.write("**Low Macro F1**: Consider adjusting confidence thresholds or class balance\n")
-        
-        if metrics['added'] > 10000:
-            f.write("**Large Addition**: Many pseudo-labels added - monitor quality\n")
-        elif metrics['added'] < 100:
-            f.write("**Small Addition**: Few pseudo-labels - may need lower confidence threshold\n")
-        
-        f.write(f"\n**Next Steps**: Monitor per-class F1 scores and pseudo-label quality\n")
-
 
 def test_model(model_path, test_csv, text_col, label_col, batch_size, num_labels, device):
-    """Test model on held-out test set and return metrics"""
     print(f"\n  Testing model on {test_csv}...")
     
     model = BertweetModule.load_from_checkpoint(model_path, strict=False)
     model = model.to(device)
     model.eval()
     
-    # Explicitly disable dropout in the underlying transformer model
     for module in model.modules():
         if isinstance(module, torch.nn.Dropout):
             module.p = 0.0
@@ -198,7 +179,6 @@ def test_model(model_path, test_csv, text_col, label_col, batch_size, num_labels
     all_preds = np.concatenate(all_preds)
     all_probs = np.concatenate(all_probs)
     
-    # Calculate metrics
     from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
     
     accuracy = accuracy_score(true_labels, all_preds)
@@ -206,18 +186,17 @@ def test_model(model_path, test_csv, text_col, label_col, batch_size, num_labels
     f1_weighted = f1_score(true_labels, all_preds, average='weighted')
     f1_per_class = f1_score(true_labels, all_preds, average=None)
     
-    # Calculate precision and recall per class
     from sklearn.metrics import precision_recall_fscore_support
     precision, recall, f1, support = precision_recall_fscore_support(true_labels, all_preds, average=None)
     
     # Print detailed metrics
-    print(f"\n  DETAILED TEST RESULTS:")
-    print(f"    Overall Accuracy: {accuracy:.4f}")
-    print(f"    Macro F1: {f1_macro:.4f}")
-    print(f"    Weighted F1: {f1_weighted:.4f}")
-    print(f"    \n  Per-Class Performance:")
+    print(f"DETAILED TEST RESULTS:")
+    print(f"Overall Accuracy: {accuracy:.4f}")
+    print(f"Macro F1: {f1_macro:.4f}")
+    print(f"Weighted F1: {f1_weighted:.4f}")
+    print(f"Per-Class Performance:")
     for i in range(num_labels):
-        print(f"    Class {i+1}: F1={f1_per_class[i]:.4f}, Precision={precision[i]:.4f}, Recall={recall[i]:.4f}, Support={support[i]}")
+        print(f"Class {i+1}: F1={f1_per_class[i]:.4f}, Precision={precision[i]:.4f}, Recall={recall[i]:.4f}, Support={support[i]}")
     
     # Print confusion matrix
     cm = confusion_matrix(true_labels, all_preds)
@@ -314,29 +293,29 @@ def main():
     parser = argparse.ArgumentParser(description='Iterative pseudo-labeling with adaptive confidence')
     
     # Data paths
-    parser.add_argument('--labelled_csv', type=str, required=True
-    parser.add_argument('--unlabelled_csv', type=str, required=True
-    parser.add_argument('--test_csv', type=str, required=True
-    parser.add_argument('--output_dir', type=str, default='pseudo_training_runs'
+    parser.add_argument('--labelled_csv', type=str, required=True)
+    parser.add_argument('--unlabelled_csv', type=str, required=True)
+    parser.add_argument('--test_csv', type=str, required=True)
+    parser.add_argument('--output_dir', type=str, default='pseudo_training_runs')
     
     # Column names
-    parser.add_argument('--text_col', type=str, default='text'
-    parser.add_argument('--label_col', type=str, default='AR'
-    parser.add_argument('--id_col', type=str, default='tweet_id'
+    parser.add_argument('--text_col', type=str, default='text')
+    parser.add_argument('--label_col', type=str, default='AR')
+    parser.add_argument('--id_col', type=str, default='tweet_id')
     
     # Pseudo-labeling parameters
-    parser.add_argument('--min_confidence', type=float, default=0.7
-    parser.add_argument('--confidence_step', type=float, default=0.05
-    parser.add_argument('--max_iterations', type=int, default=10
+    parser.add_argument('--min_confidence', type=float, default=0.7)
+    parser.add_argument('--confidence_step', type=float, default=0.05)
+    parser.add_argument('--max_iterations', type=int, default=10)
     
     # Training parameters
-    parser.add_argument('--num_labels', type=int, default=3
-    parser.add_argument('--batch_size', type=int, default=64
-    parser.add_argument('--lr', type=float, default=2e-5
-    parser.add_argument('--max_epochs', type=int, default=6
-    parser.add_argument('--val_size', type=float, default=0.15
-    parser.add_argument('--test_size', type=float, default=0.0
-    parser.add_argument('--class_weight', action='store_true'
+    parser.add_argument('--num_labels', type=int, default=3)
+    parser.add_argument('--batch_size', type=int, default=64)
+    parser.add_argument('--lr', type=float, default=2e-5)
+    parser.add_argument('--max_epochs', type=int, default=6)
+    parser.add_argument('--val_size', type=float, default=0.15)
+    parser.add_argument('--test_size', type=float, default=0.0)
+    parser.add_argument('--class_weight', action='store_true')
     
     args = parser.parse_args()
     
@@ -423,24 +402,6 @@ def main():
         print(f"    Median:  {np.median(confidences):.4f}")
         print(f"    Std Dev: {confidences.std():.4f}")
         
-        # Confidence distribution in bins
-        print(f"\n  Confidence Distribution:")
-        bins = [(0.0, 0.5), (0.5, 0.6), (0.6, 0.7), (0.7, 0.8), (0.8, 0.85), 
-                (0.85, 0.9), (0.9, 0.95), (0.95, 0.97), (0.97, 0.99), (0.99, 1.0)]
-        for low, high in bins:
-            count = ((confidences >= low) & (confidences < high)).sum()
-            pct = 100 * count / len(confidences)
-            bar = '█' * int(pct / 2)  # Scale for visualization
-            print(f"    [{low:.2f}, {high:.2f}): {count:7,} ({pct:5.2f}%) {bar}")
-        
-        # High confidence breakdown (more granular)
-        print(f"\n  High Confidence Breakdown (>= 0.9):")
-        high_conf_bins = [(0.90, 0.91), (0.91, 0.92), (0.92, 0.93), (0.93, 0.94), 
-                          (0.94, 0.95), (0.95, 0.96), (0.96, 0.97), (0.97, 0.98), 
-                          (0.98, 0.99), (0.99, 1.0)]
-        for low, high in high_conf_bins:
-            count = ((confidences >= low) & (confidences < high)).sum()
-            print(f"    [{low:.2f}, {high:.2f}): {count:7,}")
         
         # Label distribution in predictions
         print(f"\n  Predicted Label Distribution:")
@@ -462,21 +423,19 @@ def main():
             if len(candidates) > 0:
                 print(f"    Found {len(candidates)} predictions with confidence >= {current_threshold:.3f}")
                 
-                # Detailed analysis of selected pseudo-labels
-                print(f"    Pseudo-label Analysis:")
-                print(f"      Confidence range: [{candidates['confidence'].min():.4f}, {candidates['confidence'].max():.4f}]")
-                print(f"      Mean confidence: {candidates['confidence'].mean():.4f}")
-                print(f"      Label distribution: {dict(candidates['pred_label'].value_counts().sort_index())}")
+                print(f"Pseudo-label Analysis:")
+                print(f"Confidence range: [{candidates['confidence'].min():.4f}, {candidates['confidence'].max():.4f}]")
+                print(f"Mean confidence: {candidates['confidence'].mean():.4f}")
+                print(f"Label distribution: {dict(candidates['pred_label'].value_counts().sort_index())}")
                 
-                # Check for class imbalance in pseudo-labels
                 label_counts = candidates['pred_label'].value_counts().sort_index()
                 total = len(candidates)
-                print(f"      Class percentages: {dict((label_counts / total * 100).round(1))}")
+                print(f"Class percentages: {dict((label_counts / total * 100).round(1))}")
                 
                 selected_df = candidates
                 break
             else:
-                print(f"    × No predictions with confidence >= {current_threshold:.3f}")
+                print(f"No predictions with confidence >= {current_threshold:.3f}")
                 current_threshold -= args.confidence_step
         
         if selected_df is None or len(selected_df) == 0:
@@ -497,9 +456,9 @@ def main():
             break
         
         # Step 4: Add to labeled, remove from unlabeled
-        print(f"\n  Adding {len(selected_df)} pseudo-labels to training set")
-        print(f"    Confidence range: [{selected_df['confidence'].min():.4f}, {selected_df['confidence'].max():.4f}]")
-        print(f"    Label distribution: {dict(selected_df['pred_label'].value_counts().sort_index())}")
+        print(f"Adding {len(selected_df)} pseudo-labels to training set")
+        print(f"Confidence range: [{selected_df['confidence'].min():.4f}, {selected_df['confidence'].max():.4f}]")
+        print(f"Label distribution: {dict(selected_df['pred_label'].value_counts().sort_index())}")
         
         # Create new labeled entries (match columns with original labeled data)
         new_labeled = pd.DataFrame({
