@@ -348,7 +348,6 @@ class AutomodelSupervisedTrainer:
             train_label_counts=datamodule["train"].train_label_counts,
         )
 
-        print(self.trainer_args, flush=True)
         trainer = pl.Trainer(**self.trainer_args, callbacks=self.create_callbacks())
         trainer.fit(self.model, datamodule=datamodule["train"])
 
