@@ -75,7 +75,7 @@ class BertweetModule(pl.LightningModule):
             logits = outputs.logits
             loss_fn = torch.nn.CrossEntropyLoss(weight=self.class_weights)
             loss = loss_fn(logits, batch["labels"])
-        self.log("train_loss", loss, prog_bar=True, on_step=True, on_epoch=True)
+        self.log("train_loss", loss, prog_bar=True, on_step=True, on_epoch=True, sync_dist=True)
         return loss
 
     def on_validation_epoch_start(self):
@@ -96,7 +96,7 @@ class BertweetModule(pl.LightningModule):
         if self.class_weights is not None:
             loss_fn = torch.nn.CrossEntropyLoss(weight=self.class_weights)
             loss = loss_fn(logits, y)
-        self.log_dict({"val_loss": loss, "val_acc": acc, "val_macro_f1": f1_macro, "val_weighted_f1": f1_weighted, "conf_mean": torch.mean(conf).item(), "conf_std": torch.std(conf).item()}, prog_bar=True)
+        self.log_dict({"val_loss": loss, "val_acc": acc, "val_macro_f1": f1_macro, "val_weighted_f1": f1_weighted, "conf_mean": torch.mean(conf).item(), "conf_std": torch.std(conf).item()}, prog_bar=True, sync_dist=True)
         return {"cm": cm}
 
     def on_validation_epoch_end(self):

@@ -157,6 +157,9 @@ class AutomodelSupervisedTrainer:
         print(f"Done training. Best checkpoint: {self.ckpt_cb.best_model_path}")
 
         if label_all_tweets:
+            if "strategy" in self.trainer_args:
+                self.trainer_args["strategy"] = DDPStrategy(find_unused_parameters=False, accelerator="gpu")
+            
             print("Labeling all tweets ================")
             # Load all tweets data
             all_tweets_df = pd.read_csv(self.config.all_data)
@@ -204,10 +207,16 @@ class AutomodelSupervisedTrainer:
 
         metrics_df = pd.DataFrame()
         for i in range(k):
+            if "strategy" in self.trainer_args:
+                self.trainer_args["strategy"] = DDPStrategy(find_unused_parameters=False, accelerator="gpu")
             print(f"{label.format(i + 1)} {SEPARATOR}")
             dm = datamodule_factory(i, **kwargs)
             results = training_function(i, dm)
             metrics_df = pd.concat([metrics_df, results], ignore_index=True)
+            
+            # Clean up after each iteration
+            torch.cuda.empty_cache()
+            
         return metrics_df
 
     def create_metrics_dict(self):
@@ -339,6 +348,7 @@ class AutomodelSupervisedTrainer:
             train_label_counts=datamodule["train"].train_label_counts,
         )
 
+        print(self.trainer_args, flush=True)
         trainer = pl.Trainer(**self.trainer_args, callbacks=self.create_callbacks())
         trainer.fit(self.model, datamodule=datamodule["train"])
 
@@ -375,17 +385,17 @@ class AutomodelSupervisedTrainer:
         mps_available = torch.backends.mps.is_available() and not torch.cuda.is_available()
 
         if cuda_gpus:
-            self.trainer_args.update(dict(precision="bf16-mixed"))
+            self.trainer_args.update(dict(precision="bf16-mixed", devices=cuda_gpus))
             if cuda_gpus == 1:
                 print("Single GPU ============================")
-                self.trainer_args.update(dict(accelerator="gpu", devices=1))
+                self.trainer_args.update(dict(accelerator="gpu"))
             else:
                 print("Multiple GPU ============================")
+                # When using DDPStrategy, don't set accelerator - let the strategy handle it
                 self.trainer_args.update(
                     dict(
-                        accelerator="gpu",
-                        devices=cuda_gpus,
-                        strategy=DDPStrategy(find_unused_parameters=False),
+                        accelerator="auto",
+                        strategy=DDPStrategy(find_unused_parameters=False, accelerator="gpu"),
                     )
                 )
         elif mps_available:
