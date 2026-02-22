@@ -10,8 +10,9 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.strategies import DDPStrategy
 from pytorch_lightning.loggers import TensorBoardLogger
-from classification.config import SupervisedTrainingConfig
-from modules.berttweet import BertweetModule, TweetsTVTDataModule, create_k_fold_data_modules, KFoldDataModule
+from config import SupervisedTrainingConfig
+from classifier import BertweetModule
+from data import TweetsTVTDataModule, create_k_fold_data_modules, KFoldDataModule
 
 TEXT_COL = "text"
 LABEL_COL = "AR"
