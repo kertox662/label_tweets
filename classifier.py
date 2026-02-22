@@ -13,7 +13,7 @@ from pytorch_lightning.loggers import CSVLogger
 import matplotlib.pyplot as plt
 from torchinfo import summary
 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, get_linear_schedule_with_warmup
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torchmetrics.classification import MulticlassF1Score, MulticlassAccuracy, MulticlassConfusionMatrix
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -28,7 +28,6 @@ class BertweetModule(pl.LightningModule):
         num_labels: int = 3,
         lr: float = 2e-5,
         weight_decay: float = 0.01,
-        warmup_ratio: float = 0.1,
         dropout: float = 0.1,
         total_steps: Optional[int] = None,
         class_weight: bool = False,
@@ -181,18 +180,7 @@ class BertweetModule(pl.LightningModule):
             "weight_decay": 0.0,
         },
         ]
-        optimizer = torch.optim.AdamW(optimizer_grouped_parameters, lr=self.hparams.lr)
-        
-        # Scheduler with warmup
-        if self.total_steps_override is None:
-            # Will be set in trainer via setup hook
-            return optimizer
-        warmup_steps = int(self.hparams.warmup_ratio * self.total_steps_override)
-        scheduler = get_linear_schedule_with_warmup(
-            optimizer, num_warmup_steps=warmup_steps, num_training_steps=self.total_steps_override
-        )
-        scheduler = {"scheduler": scheduler, "interval": "step", "frequency": 1}
-        return [optimizer], [scheduler]
+        return torch.optim.AdamW(optimizer_grouped_parameters, lr=self.hparams.lr)
 
     def setup(self, stage: Optional[str] = None):
         # If total steps isn't set, try to infer from trainer

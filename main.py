@@ -32,6 +32,7 @@ def main():
         config_yaml = yaml.safe_load(f)
 
     # Dispatch
+    config = SupervisedTrainingConfig(**config_yaml)
     run_classification(args, config)
 
 if __name__ == "__main__":

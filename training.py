@@ -32,7 +32,6 @@ class AutomodelSupervisedTrainer:
             "num_labels": NUM_LABELS,
             "lr": config.learning_rate,
             "weight_decay": config.weight_decay,
-            "warmup_ratio": config.warmup_ratio,
             "dropout": config.dropout_p,
             "class_weight": config.class_weight,
         }
@@ -252,6 +251,8 @@ class AutomodelSupervisedTrainer:
 
         for fold_idx, dm in k_fold_datamodule_generator:
             print(f"It {iteration + 1}, Fold {fold_idx + 1} Training {SEPARATOR}")
+            if "strategy" in self.trainer_args:
+                self.trainer_args["strategy"] = DDPStrategy(find_unused_parameters=False, accelerator="gpu")
             dm.setup()
             if self.model is None:
                 self.model = BertweetModule(
