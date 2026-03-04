@@ -9,7 +9,6 @@ learning_rate: 0.00003
 max_epochs: 25
 accumulate_grad_batches: 1
 stopping_patience: 3
-warmup_ratio: 0.1
 
 # Metrics
 logs_dir: tb_logs
