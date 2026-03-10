@@ -5,11 +5,8 @@ from typing import List, Optional
 class SupervisedTrainingConfig:
     # Model params
     model_name: str | None = None
-    checkpoint_name: str | None = None
-    soft_labels: bool = True
+    checkpoint_name: str | None = None # Where to start training from, if not None
     class_weight: List[int] | None = None
-    freeze_encoder: bool = True
-    hidden_dim: int = 128
     dropout_p: float = 0.3
     trials: int = 20
     cross_val_folds: Optional[int] = None
@@ -19,7 +16,6 @@ class SupervisedTrainingConfig:
     max_epochs: int = 1
     accumulate_grad_batches: int = 8
     stopping_patience: int = 2
-    warmup_ratio: float = 0.1
     weight_decay: float = 0.01
 
     # Metrics

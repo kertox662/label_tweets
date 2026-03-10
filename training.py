@@ -10,8 +10,9 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.strategies import DDPStrategy
 from pytorch_lightning.loggers import TensorBoardLogger
-from classification.config import SupervisedTrainingConfig
-from modules.berttweet import BertweetModule, TweetsTVTDataModule, create_k_fold_data_modules, KFoldDataModule
+from config import SupervisedTrainingConfig
+from classifier import BertweetModule
+from data import TweetsTVTDataModule, create_k_fold_data_modules, KFoldDataModule
 
 TEXT_COL = "text"
 LABEL_COL = "AR"
@@ -31,7 +32,6 @@ class AutomodelSupervisedTrainer:
             "num_labels": NUM_LABELS,
             "lr": config.learning_rate,
             "weight_decay": config.weight_decay,
-            "warmup_ratio": config.warmup_ratio,
             "dropout": config.dropout_p,
             "class_weight": config.class_weight,
         }
@@ -251,6 +251,8 @@ class AutomodelSupervisedTrainer:
 
         for fold_idx, dm in k_fold_datamodule_generator:
             print(f"It {iteration + 1}, Fold {fold_idx + 1} Training {SEPARATOR}")
+            if "strategy" in self.trainer_args:
+                self.trainer_args["strategy"] = DDPStrategy(find_unused_parameters=False, accelerator="gpu")
             dm.setup()
             if self.model is None:
                 self.model = BertweetModule(
@@ -348,6 +350,7 @@ class AutomodelSupervisedTrainer:
             train_label_counts=datamodule["train"].train_label_counts,
         )
 
+        print(self.trainer_args, flush=True)
         trainer = pl.Trainer(**self.trainer_args, callbacks=self.create_callbacks())
         trainer.fit(self.model, datamodule=datamodule["train"])
 
